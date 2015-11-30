@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>  <html class="ie lt-ie9 lt-ie8 lt-ie7 ie6" dir="ltr"> <![endif]-->
+<!--[if IE 7]>     <html class="ie lt-ie9 lt-ie8 ie7" dir="ltr"> <![endif]-->
+<!--[if IE 8]>     <html class="ie lt-ie9 ie8" dir="ltr"> <![endif]-->
+<!--[if IE 9]>     <html class="ie ie9" dir="ltr"> <![endif]-->
+<!--[if !IE]><!-->
+<html dir="ltr"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>Programming a ToolValidator class—Geoprocessing and Python | ArcGIS for Desktop</title>
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+        <script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/pd.js" type="text/javascript"></script><script type="text/javascript" async="" src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/8609.js"></script><script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/analytics.js" async="" type="text/javascript"></script><script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/gtm.js" async=""></script><script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/ga.js" async="" type="text/javascript"></script><script>
+          var docConfig = {
+            locale: 'en',
+            localedir: 'en',
+            langSelector: 'none'
+          };
+        </script>
+
+        <!--[if lt IE 9]>
+          <script src="/cdn/js/libs/html5shiv.js?1357673785" type="text/javascript"></script>
+          <script src="/cdn/js/libs/selectivizr-min.js" type="text/javascript"></script>
+          <style>
+            #wrapper {
+              min-width: 960px;
+            }
+          </style>
+        <![endif]-->
+
+
+   <link type="text/css" rel="stylesheet" href="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/3706abc4-0756-424b-b07b-1748122f85d8.css">
+   <link rel="shortcut icon" href="http://pro.arcgis.com/img/favicon.ico">
+   <link href="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/screen.css" media="screen" rel="stylesheet" type="text/css">
+   <link href="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/documentation.css" media="screen" rel="stylesheet" type="text/css">
+   <link href="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/codehilight.css" media="screen" rel="stylesheet" type="text/css">
+   <link href="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/print.css" media="print" type="text/css" rel="stylesheet">
+
+      <!--[if lt IE 9]><script type="text/javascript" src="/cdn/js/libs/html5shiv-printshiv.js"></script><![endif]-->
+
+       <!--- search MD -->
+       <meta name="description" content="A ToolValidator class is used by script tools to validate parameter values."><meta name="last-modified" content="2015-7-14"><meta name="product" content="arcgis-pro"><meta name="sub_category" content="ArcGIS Pro"><meta name="search-collection" content="help"><meta name="content_type_label" content="ArcPy Reference"><meta name="sub_category_label" content="ArcGIS Pro"><meta name="search-category" content="help-general"><meta name="subject_label" content="ANALYSIS"><meta name="version" content="pro1.1"><meta name="content_type" content="ArcPy Reference"><meta name="subject" content="ANALYSIS"><meta name="content-language" content="en">
+       <!--- search MD -->
+
+         <script type="text/javascript">
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-54744810-4']);
+     _gaq.push(['_setDomainName', 'arcgis.com']);
+     _gaq.push(['_trackPageview']);
+     (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+   </script>
+
+   <script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/jquery.js" type="text/javascript"></script>
+   <link href="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/colorbox.css" media="screen" rel="stylesheet" type="text/css">
+   <link href="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/colorbox_l10n.css" media="screen" rel="stylesheet" type="text/css">
+   <link href="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/codehilight_l10n.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/jquery_002.js" type="text/javascript"></script>
+  <script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/video-init.js" type="text/javascript"></script>
+  <script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/sitecfg.js" type="text/javascript"></script>
+
+       
+      <script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/signIn.js" type="text/javascript"></script>
+    
+
+       <!--- Language Picker -->
+      <link type="text/css" rel="stylesheet" href="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/langSelector.css">
+      <script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/l10NStrings.js" type="text/javascript"></script>
+      <script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/langSelector.js" type="text/javascript"></script>
+      <!--- Language Picker -->
+      <!--- Activate tailcoat JS components -->
+       <script>
+         $(document).ready(function(){
+          T.init();
+        });
+      </script>
+
+
+       
+    <script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/analytics" type="text/javascript"></script><script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/analytics_002" type="text/javascript"></script></head>
+       <!--
+      pub: GUID-BCEB9EC5-EE4D-4AB6-9124-B6CD66A16827
+      tpc: GUID-71227AC2-5D66-4FB0-872C-3C9E752E7E82
+      -->
+     
+
+   <body class="en doc">
+      <!-- Google Tag Manager -->
+     <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WC6ZC8"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+    'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+    '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-WC6ZC8');</script>
+
+    <!-- End Google Tag Manager -->
+   
+      
+    <div class="drawer">
+      <!-- Mobile Nav -->
+      <!-- Mobile Nav Drawer -->
+      <nav class="drawer-nav drawer-left"> <!-- drawer-right will put the drawer on the right side. -->
+        <div class="drawer-header">
+        <h4 class="site-title"><a href="http://pro.arcgis.com/" id="site-logo">Arc<span>GIS</span> for Desktop</a><span class="down-arrow" id="down-arrow"></span></h4>
+        </div>
+         
+                        <form id="helpSearchForm" class="site-search-form" method="GET" action="">
+                        <input class="drawer-search" name="q" data-langlabel="search-arcgis" placeholder="Search ArcPy" type="search">
+                        <input name="collection" value="help" type="hidden">
+                        <input name="product" value="arcgis-pro" type="hidden">
+                        <input name="version" value="pro1.1" type="hidden">
+                        <input name="language" value="en" type="hidden">
+                        </form>
+
+                    
+
+        <ul>
+           <li><a id="nav-doc" data-langlabel="documentation" href="http://desktop.arcgis.com/en/documentation/" class="drawer-link icon-notebook">Documentation</a></li>
+           <li><a id="nav-pricing" data-langlabel="pricing" href="http://desktop.arcgis.com/en/pricing/" class="drawer-link">Pricing</a></li>
+           <li><a id="nav-support" data-langlabel="support" href="http://desktop.arcgis.com/en/support/" class="drawer-link icon-support">Support</a></li>
+        </ul>
+      </nav>
+
+
+      <nav class="drawer-nav drawer-right"> <!-- drawer-right will put the drawer on the right side. -->
+        <div class="drawer-header">
+          <h4 class="site-title user-name data-username" data-username=""></h4>
+        </div>
+
+        <ul>
+          <li class="agolProfile"><a class="drawer-link icon-grid-alt" data-langlabel="my-profile" href="http://www.arcgis.com/home/user.html">My Profile</a></li>
+          <li class="agolHelp"><a class="icon-support drawer-link" data-langlabel="help" href="http://www.arcgis.com/home/support.html">Help</a></li>
+          <li class="agolLogout"><a id="agolLogout" class="drawer-link icon-exit log-out-link" data-langlabel="sign-out" href="#">Sign Out</a></li>
+        </ul>
+      </nav>
+    </div>
+    
+      <div class="wrapper">
+         <div class="page sticky-footer">
+            <!--googleoff: all-->
+            
+    <header id="header" class="header">
+      <div class="container relative-container">
+        <div class="row">
+          <div class="column-24">
+            <div class="site-brand">
+              <a class="drawer-toggle toggle-site-navigation icon-navigation tablet-show" data-direction="active-left" href="#"></a>
+              <a href="http://pro.arcgis.com/" class="site-logo phone-hide" id="site-logo">Arc<span>GIS</span> for Desktop</a>
+              <span class="site-dropdown-toggle tablet-hide" id="down-arrow"></span>
+
+              <nav class="site-dropdown tablet-hide" id="dropDown">
+                  <a href="http://www.arcgis.com/">
+                    <h4 data-langlabel="arcgis">ArcGIS Online</h4>
+                    <p>The mapping platform for your organization</p>
+                  </a>
+                  <a href="http://desktop.arcgis.com/" class="current selected">
+                    <h4 data-langlabel="arcgis-for-desktop">ArcGIS for Desktop</h4>
+                    <p>A complete professional GIS</p>
+                  </a>
+                  <a href="http://server.arcgis.com/">
+                    <h4 data-langlabel="arcgis-for-server">ArcGIS for Server</h4>
+                    <p>GIS in your enterprise</p>
+                  </a>
+                  <a href="https://developers.arcgis.com/">
+                    <h4 data-langlabel="arcgis-for-developers">ArcGIS for Developers</h4>
+                    <p>Tools to build location-aware apps</p>
+                  </a>
+                  <a href="http://solutions.arcgis.com/">
+                    <h4 data-langlabel="arcgis-solutions">ArcGIS Solutions</h4>
+                    <p>Free template maps and apps for your industry</p>
+                  </a>
+                  <a href="http://marketplace.arcgis.com/">
+                    <h4 data-langlabel="arcgis-marketplace">ArcGIS Marketplace</h4>
+                    <p>Get apps and data for your organization</p>
+                  </a>
+              </nav>
+            </div> <!-- End of site brand -->
+
+            <nav class="site-nav tablet-hide">
+              <ul>
+               <li><a id="nav-doc" data-langlabel="documentation" href="http://desktop.arcgis.com/en/documentation/">Documentation</a></li>
+               <li><a id="nav-pricing" data-langlabel="pricing" href="http://desktop.arcgis.com/en/pricing/">Pricing</a></li>
+               <li><a id="nav-support" data-langlabel="support" href="http://desktop.arcgis.com/en/support/">Support</a></li>
+              </ul>
+            </nav>
+            <a class="esri-logo" href="http://www.esri.com/">Esri</a>
+            <div id="lang-block" class="dropdown-navigation dropdown-wrapper right-align right tablet-hide"><a class="dropdown left" data-lang="en" id="lglink">English</a><div class="dropdown-content"><div id="lgpickerId" class="dropdown-menu"><ul><li><a style="font-weight: bolder;" href="#" data-lang="en" class="lgchoice">English</a></li><li><a href="#" data-lang="de" class="lgchoice">Deutsch</a></li><li><a href="#" data-lang="es" class="lgchoice">Español</a></li><li><a href="#" data-lang="fr" class="lgchoice">Français</a></li><li><a href="#" data-lang="ja" class="lgchoice">日本語</a></li><li><a href="#" data-lang="ru" class="lgchoice">Русский</a></li><li><a href="#" data-lang="zh-cn" class="lgchoice">简体中文</a></li></ul></div></div></div>
+
+
+            
+        <nav id="logged-out-navigation" class="right hide-if-logged-in">
+          <ul class="left plain inline">
+          <li>
+            <a data-langlabel="sign-in" id="login-link" class="icon-user" href="http://www.arcgis.com/home/signin.html?returnUrl=http%3A%2F%2Fpro.arcgis.com%2Fen%2Fpro-app%2Farcpy%2Fgeoprocessing_and_python%2Fprogramming-a-toolvalidator-class.htm">Sign In</a>
+          </li>
+          </ul>
+        </nav>
+
+       <div id="logged-in-navigation" class="align-left right hide-if-logged-out hide">
+              <div class="dropdown-navigation dropdown-wrapper right-align right tablet-hide" id="user-dropdown">
+              <a class="dropdown left" href="#">user</a>
+              <div class="dropdown-content">
+                <div class="dropdown-menu">
+                <ul class="myconsole">
+                    <li class="agolProfile"><a data-langlabel="my-profile" href="http://www.arcgis.com/home/user.html">My Profile</a></li>
+                    <li class="agolLogout"><a id="agolLogout" data-langlabel="sign-out" href="#">Sign Out</a></li>
+                  </ul>
+                </div>
+              </div>
+              </div>
+
+              <!-- Mobile User Menu Button -->
+            <a class="mobile-user-dropdown drawer-toggle toggle-site-navigation tablet-show right" data-direction="active-right" href="#">
+            <img data-user-avatar="34" class="profile-image" height="34" width="34">
+            </a>
+          </div>
+    
+
+           
+                       <div class="site-search right">
+                        <form id="helpSearchForm" class="site-search-form" method="GET" action="">
+                        <span class="site-search-toggle icon-search"></span>
+                        <input value="Search" class="left site-search-input" name="q" data-langlabel="search-arcgis" placeholder="Search ArcPy" type="search">
+                        <input name="collection" value="all" type="hidden">
+                        <input name="product" value="arcgis-pro" type="hidden">
+                        <input name="version" value="pro1.1" type="hidden">
+                        <input name="language" value="en" type="hidden">
+                        <button type="submit" class="btn transparent site-search-button" data-langlabel="go">Go</button>
+                        </form>
+                      </div>
+
+                    
+
+          </div> <!-- Column 24 -->
+        </div>
+       </div>
+    </header>
+    
+            <div class="navigation-bar ">
+               <div class="container">
+                  <header>
+                     <h1><a href="http://pro.arcgis.com/en/pro-app">ArcGIS Pro</a></h1>
+                  </header>
+                  <nav class="navigation-bar-nav"><ul><li><a href="http://pro.arcgis.com/en/pro-app/" target="_top" title="ArcGIS Pro Home">Home</a></li><li><a href="http://pro.arcgis.com/en/pro-app/get-started/" target="_top" title="Get started with ArcGIS Pro">Get Started</a></li><li><a href="http://pro.arcgis.com/en/pro-app/help/" target="_top" title="ArcGIS Pro Help">Help</a></li><li><a href="http://pro.arcgis.com/en/pro-app/tool-reference/" target="_top" title="ArcGIS Pro Tool Reference">Tool Reference</a></li><li class="current"><a href="http://pro.arcgis.com/en/pro-app/arcpy/" target="_top" title="ArcGIS ArcPy Reference">ArcPy</a></li><li><a href="http://pro.arcgis.com/en/pro-app/sdk/" target="_top" title="Extend ArcGIS Pro with add-ins and .NET">SDK</a></li><li><a href="http://pro.arcgis.com/en/pro-app/community/" target="_top" title="Get social with the ArcGIS Pro user community">Community</a></li></ul></nav>
+               </div>
+            </div>
+            <!--BREADCRUMB-BEG--><div id="bigmac" class="sticky-breadcrumbs trailer-2 affix" data-spy="affix" data-offset-top="180"><div class="container"><div class="column-24"><ul class="small breadcrumbs"><li><a href="http://pro.arcgis.com/en/pro-app/arcpy/main/arcgis-pro-arcpy-reference.htm">ArcPy</a></li><li><a href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/index.html">Geoprocessing and Python</a></li><li><a href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/a-quick-tour-of-creating-tools-in-python.htm">Creating geoprocessing tools</a></li><li><a href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/adding-a-script-tool.htm">Creating script tools in a custom toolbox</a></li><li><a href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/customizing-script-tool-behavior.htm">Customizing script tool behavior with validation</a></li><li><a href="#">Programming a ToolValidator class</a></li><a href="#" class="right icon-arrow-up back-to-top scroll-show visible">Back to Top</a></ul></div></div></div><!--BREADCRUMB-END-->
+            <!--googleon: all-->
+
+            <div class="container">
+               <div class="row">
+                  <!--googleoff: all-->
+                  <aside class="reference-index column-6"><nav class="accordion">
+<li class="topiclink"><a href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/adding-a-script-tool.htm">Adding a script tool</a></li>
+<li class="topiclink"><a href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/editing-script-tool-code.htm">Editing script tool code</a></li>
+<li class="topiclink"><a href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/debugging-script-tools.htm">Debug script tools</a></li>
+<li class="topiclink"><a href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/setting-script-tool-parameters.htm">Setting script tool parameters</a></li>
+<li class="topiclink"><a href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/accessing-parameters-in-a-script-tool.htm">Accessing parameters in a  script tool</a></li>
+<li class="topiclink"><a href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/writing-messages-in-script-tools.htm">Writing messages in script tools</a></li>
+<li class="topiclink"><a href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/controlling-the-progress-dialog-box.htm">Controlling a script tool's progressor</a></li>
+<li class="topiclink"><a href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/setting-output-symbology-in-scripts.htm">Setting output symbology in scripts</a></li>
+<section class="accordion-section current active" data-collapsed="false"><header><h4 class="section-title">Customizing script tool behavior with validation</h4></header><ul style="display: block;">
+<li class="topiclink"><a href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/customizing-script-tool-behavior.htm">Customizing script tool behavior</a></li>
+<li class="topiclink current"><a href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/programming-a-toolvalidator-class.htm">Programming a ToolValidator class</a></li>
+</ul></section>
+</nav></aside>
+
+                  <!--googleon: all-->
+                  <div class="column-17 pre-1">
+
+                    <!-- BEGPAGECONTENT -->
+                    <header class="trailer-1">
+                       <h1 class="trailer-1">Programming a ToolValidator class</h1>
+                    </header>
+                    <main class="content-area">
+                       
+                       <div class="semantic-toc"><ul><li><a href="#GUID-8BC6A4B7-B95D-4992-9792-482E1493FEED">Parameter object</a></li><li><a href="#GUID-2DAB1F14-CF04-49E9-BC35-66AEE5CCC497"><esri_codeph>schema</esri_codeph> object</a></li><li><a href="#GUID-40D99D78-5DFB-4D66-A304-B5858E836E70"><esri_codeph>filter</esri_codeph> object</a></li></ul></div>
+                       
+<p id="GUID-B65C9E12-171C-4075-A914-EFE86FAE2B60">For an overview of the ToolValidator class and use of parameter methods, see <a class="xref xref" href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/customizing-script-tool-behavior.htm">Customizing script tool behavior</a>.</p><section class="section1 padded-anchor" id="GUID-8BC6A4B7-B95D-4992-9792-482E1493FEED" purpose="section1"><h2>Parameter object</h2><section class="section2 padded-anchor" id="GUID-1371FC83-8320-48AD-9826-DE01D3702265" purpose="section2"><h3>Accessing the tool parameters</h3><p id="GUID-E6CBE2B7-DDB1-428F-BDC2-0C7840E9F364">Every
+ tool parameter has an associated parameter object with properties and 
+methods that are useful in tool validation. Parameters are contained in a
+ Python list. The standard practice is to create the list of parameters 
+in the <span class="usertext">ToolValidator</span> class <span class="usertext">__init__</span> method, as shown in the code below.</p><div class="codeblock"><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">GetParameterInfo</span><span class="p">()</span>
+</code></pre></div>
+
+</div><p id="GUID-444B2F3F-6D32-4CF7-8F80-62A851BED07F">You can also access parameters in your script (as opposed to the <span class="usertext">ToolValidator</span> class) as shown below. The only reason to access the parameter list within a script is to set the <span class="usertext">symbology</span> property.</p><div class="codeblock"><div class="highlight"><pre><code><span class="n">params</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">GetParameterInfo</span><span class="p">()</span>
+</code></pre></div>
+
+</div></section><section class="section2 padded-anchor" id="GUID-55BC3500-4DCC-4D80-BFC6-A0B201B31A90" purpose="section2"><h3>Order of parameters</h3><p id="GUID-A872BE8D-82AD-4C6C-9198-DEEED78067DE">A tool's parameters and their order are defined in the <span class="uicontrol">Parameters</span> tab of the tool's properties, as illustrated below.</p><img src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/GUID-CC43F84A-DB91-46DF-9219-ED8FF11A25F6-web.png" alt="Parameters and their order" title="Parameters and their order"><aside class="note" id="GUID-48849E43-84F1-4392-94EE-7BE31D2F9BC3"><h5 class="icon-notebook">Note:</h5><div class="note-content"><p id="GUID-0A28DB88-B321-48C9-BA06-DC3AAAFC152A">The
+ list of parameters is zero based, so the first parameter is at position
+ zero in the list. To access the third parameter, you would enter <span class="usertext">p3 = self.params[2]</span>.</p></div></aside></section><section class="section2 padded-anchor" id="GUID-1902AF14-6217-4CA0-B3A6-6AD9666ACF0E" purpose="section2"><h3>Methods</h3><h4 class="table title"></h4><table><colgroup width="*"></colgroup><colgroup width="*"></colgroup><thead><tr><th>Method name</th><th>Usage description</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-3A88E631-8975-46C7-A53D-92251E6C9F84"><span class="usertext">setErrorMessage(message:string)</span></p></td><td rowspan="1" colspan="1"><p id="GUID-C24D10AD-785C-43F1-B948-C53ACFF7EC66">Marks
+ the parameter as having an error (a red X) with the supplied message. 
+Tools do not execute if any of the parameters have an error.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-1A33F232-8072-4D51-8DA7-399123855267"><span class="usertext">setWarningMessage(message:string)</span></p></td><td rowspan="1" colspan="1"><p id="GUID-980D5DDC-EE38-4EF4-8841-E7B7675C4E48">Marks
+ the parameter as having a warning (a yellow triangle) with the supplied
+ message. Unlike errors, tools do execute with warning messages.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-65C37431-13F9-4D01-A79D-DEE26F66BCF3">
+<span class="usertext">setIDMessage(messageType: string, messageID: string, {AddArgument1}, {AddArgument2})</span></p></td><td rowspan="1" colspan="1"><p id="GUID-1A732E5E-4542-458E-B7F3-5C8323EFD54B">Allows you to set a system message. The arguments are the same as the <a class="xref xref" esrisubtype="extrel" hrefpfx="/en/pro-app/arcpy" href="http://pro.arcgis.com/en/pro-app/arcpy/functions/addidmessage.htm">AddIDMessage function</a>.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-B01F99A6-DA52-4A0C-A1B3-C479BA5E9C3B">
+<span class="usertext">clearMessage()</span></p></td><td rowspan="1" colspan="1"><p id="GUID-8EE1BAA4-EFD1-4C3B-B620-DEFCEDBB35B6">Clears out any message text and sets the status to informative (no error or warning).</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-792C2FD9-399C-4AB1-8B6D-3BD1EDF6430B">
+<span class="usertext">hasError()</span></p></td><td rowspan="1" colspan="1"><p id="GUID-BE1463EF-5AD7-4DC7-A851-49E8FDE261AD">Returns true if the parameter contains an error.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-F5116565-1FFB-41D6-90C4-21899BFB26D5">
+<span class="usertext">hasWarning()</span></p></td><td rowspan="1" colspan="1"><p id="GUID-ED575F34-41F2-4916-850D-F490ED738EF0">Returns true if the parameter contains a warning.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-4AF30B59-7294-46EF-B422-3AA5AB702422">
+<span class="usertext">isInputValueDerived()</span></p></td><td rowspan="1" colspan="1"><p id="GUID-C92B350C-B513-40EC-B6DF-A8FBAF9F6BC7">Returns true if the tool is being validated inside a Model and the input value is the output of another tool in the model.</p></td></tr></tbody></table>Parameter object methods</section><section class="section2 padded-anchor" id="GUID-EE8982CD-199C-43F2-8F09-6D6854A1C439" purpose="section2"><h3>Properties</h3><h4 class="table title"></h4><table><colgroup width="1.27*"></colgroup><colgroup width="1.00*"></colgroup><colgroup width="1.14*"></colgroup><colgroup width="1.14*"></colgroup><thead><tr><th>Property name</th><th>Read/Write</th><th>Value(s)</th><th>Description</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-44FB63F2-EEB9-4968-8A9A-9E668CDCCCF4"><span class="usertext">name</span></p></td><td rowspan="1" colspan="1"><p id="GUID-4BF358BA-53EA-4B75-A502-B1AD57D4DC35">Read-only</p></td><td rowspan="1" colspan="1"><p id="GUID-580B168D-1A37-4C6E-AD75-043A7A733362">String</p></td><td rowspan="1" colspan="1"><p id="GUID-986A0427-DD67-40C1-992A-77CEDADD383D">Parameter name as defined on the <span class="uicontrol">Parameters</span> tab of the tool's properties.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-115F213E-B90A-4582-BB0D-B5351D3AB0D0"><span class="usertext">direction</span>
+</p></td><td rowspan="1" colspan="1"><p id="GUID-44E5D780-9511-498A-9E8A-D391E5580C6B">Read-only</p></td><td rowspan="1" colspan="1"><p id="GUID-434C4301-976A-4CAE-8AA8-7504C8824B09">String: "Input", "Output"</p></td><td rowspan="1" colspan="1"><p id="GUID-11B32DA6-B13C-4D86-A3DF-BF3CA8922544">Input/Output direction of the parameter as defined on the <span class="uicontrol">Parameters</span> tab of the tool's properties.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-F84E1EC2-7D27-4340-8FDE-9875641A2B4C"><span class="usertext">datatype</span>
+</p></td><td rowspan="1" colspan="1"><p id="GUID-D0959065-F6F5-4AA8-92C2-579F0FCD908C">Read-only</p></td><td rowspan="1" colspan="1"><p id="GUID-70177791-C66E-43A4-B71C-A291EE9542FF">String</p></td><td rowspan="1" colspan="1"><p id="GUID-FF4CB48C-FF92-4150-897D-110EEF2D8804">Data type as defined on the <span class="uicontrol">Parameters</span> tab of the tool's properties.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-564CBE7A-BF7D-420D-AD86-1670B73C3F6C"><span class="usertext">parameterType</span></p></td><td rowspan="1" colspan="1"><p id="GUID-F86B8CFD-46E2-4E30-9C9B-DBADFEB0A3C8">Read-only</p></td><td rowspan="1" colspan="1"><p id="GUID-064AE22D-0D81-4AE1-A0A5-B87CBA670873">String: "Required", "Optional", "Derived"</p></td><td rowspan="1" colspan="1"><p id="GUID-C96E5C54-5C02-4E32-B427-FAD6C0FC8FF3">Type as defined on the <span class="uicontrol">Parameters</span> tab of the tool's properties.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-46FD62EE-8D66-4DBA-B4E7-0A7AC4021D48"><span class="usertext"><a class="xref xref" href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/programming-a-toolvalidator-class.htm#GUID-36147D08-15B6-4398-A892-13DC5E56701F">parameterDependencies</a></span></p></td><td rowspan="1" colspan="1"><p id="GUID-21290B6B-CDFA-44D9-801B-6D65BBA7A853">Read/write</p>
+</td><td rowspan="1" colspan="1"><p id="GUID-57A9C143-F71D-47F2-B2A6-3228AC105A02">Python List</p></td><td rowspan="1" colspan="1"><p id="GUID-62867B1A-FC89-428F-9850-470BDE00F9AE">A list of indexes of each dependent parameter.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-5E4B7923-D09C-43CB-906F-39EF3E25A79F"><span class="usertext"><a class="xref xref" href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/programming-a-toolvalidator-class.htm#GUID-054E2F6E-DFDB-44B8-B22E-52A6322B0FA4">value</a></span></p></td><td rowspan="1" colspan="1"><p id="GUID-4A290C67-E8AE-4AF8-B29E-4DB932AABAEC">Read/write</p>
+</td><td rowspan="1" colspan="1"><p id="GUID-23570804-53F7-45A9-8AE4-8ED8441B8284">Value object</p></td><td rowspan="1" colspan="1"><p id="GUID-C6C194C4-ADA2-4DC6-8168-A0D2FD23B278">The value of the parameter.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-8422AD70-4A6D-49A7-BE72-7896A9773276"><span class="usertext">defaultEnvironmentName</span>
+</p></td><td rowspan="1" colspan="1"><p id="GUID-A8C1F624-DAF8-4280-BA3E-5B06B86D66D0">Read-only</p></td><td rowspan="1" colspan="1"><p id="GUID-0876DE76-4B6F-440A-B6AE-06930736455E">String</p></td><td rowspan="1" colspan="1"><p id="GUID-48E363C2-8DE3-406D-ABAC-A07DB22F453F">The default <a class="xref xref" esrisubtype="extrel" hrefpfx="/en/pro-app/tool-reference" href="http://pro.arcgis.com/en/pro-app/tool-reference/environment-settings/what-is-a-geoprocessing-environment.htm">environment</a> setting as defined on the <span class="uicontrol">Parameters</span> tab of the tool's properties.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-917E18FD-959A-426E-8B84-49DF6A57BF39"><span class="usertext">enabled</span></p></td><td rowspan="1" colspan="1"><p id="GUID-6A2B65B1-AB49-4B22-83FE-05236D973363">Read/write</p>
+</td><td rowspan="1" colspan="1"><p id="GUID-70EFCFF0-DFA0-4523-8B4A-37E82D9E5E2D">Boolean</p></td><td rowspan="1" colspan="1"><p id="GUID-798131CC-B591-4025-847E-7179628AF29D">False if the parameter is dimmed (unavailable).</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-BDACE56A-B9BC-4B55-8F02-9C4281EC0162"><span class="usertext"><a class="xref xref" href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/programming-a-toolvalidator-class.htm#GUID-9A82029E-3883-40C7-90B5-6A32390902CE">altered</a></span></p></td><td rowspan="1" colspan="1"><p id="GUID-A9667450-BE67-401B-A724-B4738025713E">Read-only</p></td><td rowspan="1" colspan="1"><p id="GUID-99D772EF-EC31-4C00-948F-634ACC32939A">Boolean</p></td><td rowspan="1" colspan="1"><p id="GUID-083280D8-47F3-48BE-99AA-A15EE78F96CA">True if the user has modified the value.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-7B799B0D-5F8E-4DFA-BFB7-528231FDBDFD"><span class="usertext"><a class="xref xref" href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/programming-a-toolvalidator-class.htm#GUID-7BB6CB76-B030-41F0-B609-F54EE0027C27">hasBeenValidated</a></span></p></td><td rowspan="1" colspan="1"><p id="GUID-F284CE44-E52F-4787-B884-CD58C7FAE855">Read-only</p></td><td rowspan="1" colspan="1"><p id="GUID-EBAEAB14-1942-4631-8D31-8F1F8754BCCB">Boolean</p></td><td rowspan="1" colspan="1"><p id="GUID-4A0ACCF1-7342-41FE-8A73-C5FB25D82062">True if the internal validation routine has checked the parameter.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-5C4D321A-CDA6-4E83-B2F4-1E173B02D226"><span class="usertext"><a class="xref xref" href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/programming-a-toolvalidator-class.htm#GUID-4BFCB0B1-80CA-48BB-AF78-655FF528A9BA">category</a></span></p></td><td rowspan="1" colspan="1"><p id="GUID-2F256B46-8D59-418C-ACB6-35BA89E8F2E6">Read/write</p>
+</td><td rowspan="1" colspan="1"><p id="GUID-B80EEAF3-9437-405F-8634-73E4436B690A">String</p></td><td rowspan="1" colspan="1"><p id="GUID-8832E7B6-448D-4D38-9A66-8C0935C674D8">The category of the parameter.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-3A916846-DDA4-4D5F-AE37-2276F7D6F5AC"><span class="usertext"><a class="xref xref" href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/programming-a-toolvalidator-class.htm#GUID-2DAB1F14-CF04-49E9-BC35-66AEE5CCC497">schema</a></span></p></td><td rowspan="1" colspan="1"><p id="GUID-BFD0CD59-C223-4D0A-B453-DC8C89BA8919">Read-only</p></td><td rowspan="1" colspan="1"><p id="GUID-A98ACC65-7CCD-41B8-9434-043204E70EDD">GP Schema object</p></td><td rowspan="1" colspan="1"><p id="GUID-2AE230F3-1E83-44E0-8654-FB1870A9DFC9">The schema of the output dataset.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-087BC7C8-5590-4159-AE99-D8BDE1FF73DF"><span class="usertext"><a class="xref xref" href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/programming-a-toolvalidator-class.htm#GUID-40D99D78-5DFB-4D66-A304-B5858E836E70">filter</a></span></p></td><td rowspan="1" colspan="1"><p id="GUID-521E256D-8F82-4ECE-A576-02A3410E01C5">Read-only</p></td><td rowspan="1" colspan="1"><p id="GUID-BD53B00E-93E1-4365-9D9B-A6F3D5BB16E9">GP Filter object</p></td><td rowspan="1" colspan="1"><p id="GUID-AE84471B-EAC5-4F91-8F13-6AC876C2FF60">The filter to apply to values in the parameter.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-98CF2B28-BA39-4883-83A7-B89742FBAFC8"><span class="usertext"><a class="xref xref" href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/programming-a-toolvalidator-class.htm#GUID-E827DB42-DD7A-4224-B335-FCC45EF643BB">symbology</a></span></p></td><td rowspan="1" colspan="1"><p id="GUID-79C00B60-F27D-490C-AB73-8A443E490516">Read/write</p></td><td rowspan="1" colspan="1"><p id="GUID-1C64AD8B-6104-4D8F-959D-2E8F42C23E26">String</p></td><td rowspan="1" colspan="1"><p id="GUID-83FA4D7E-8B4B-4425-AB88-A93B2AFB02B6">The path to a layer file (<span class="usertext">.lyrx</span>) used for drawing the output.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-38416E89-C608-47CA-B75F-5BB7BE8FCCB5"><span class="usertext">message</span></p></td><td rowspan="1" colspan="1"><p id="GUID-27DA4491-FA7F-4BA1-A9C9-831820ABE5AC">Read-only</p></td><td rowspan="1" colspan="1"><p id="GUID-6E1202E3-91D8-4F13-9979-C7E66BAD0216">String</p></td><td rowspan="1" colspan="1"><p id="GUID-FFF22255-B135-416A-9C15-C87995661A4A">The message to be displayed to the user. See <span class="usertext">SetErrorMessage</span> and <span class="usertext">SetWarningMessage</span> above.</p></td></tr></tbody></table>Parameter object properties<p id="GUID-D2512993-C4A9-49B8-A5C2-CC8CD541C7AC">Some code examples are shown below. For other coding examples, see <a class="xref xref" href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/customizing-script-tool-behavior.htm">Customizing script tool behavior</a>.</p></section><section class="section2 padded-anchor" id="GUID-7EDC8586-9479-4552-8FDD-EF1CDFBD4D4F" purpose="section2"><h3>ToolValidator properties versus script tool properties</h3><p id="GUID-AA9D746C-E670-4F62-8522-487D0BAAB9CC">A parameter's default value, filter, symbology, and dependencies can be set in both the <span class="uicontrol">Parameters</span> tab of the script tool's properties dialog box and in the <span class="usertext">ToolValidator</span> class.</p><p id="GUID-5D72351D-7F75-441E-95A2-96E7DDBCA835">Properties you set in <span class="usertext">ToolValidator</span>
+ always override those set in the script tool properties dialog box. For
+ example, if you set the default value of a parameter to "BLUE" in the 
+script tool properties dialog box, and reset it to "RED" in <span class="usertext">initializeParameters()</span>, the default value becomes "RED". Once <span class="usertext">initializeParameters()</span>
+ has been called, the script tool properties dialog box will display 
+"RED" as the default value. If you (or your users) get into the 
+situation where changes you make to one of these four parameter 
+properties in the script's properties dialog box do not get saved, it is
+ probably because the property is overridden within the <span class="usertext">ToolValidator</span> class.</p></section><section class="section2 padded-anchor" id="GUID-36147D08-15B6-4398-A892-13DC5E56701F" purpose="section2"><h3><span class="usertext">parameterDependencies</span></h3><p id="GUID-AFAF956C-770F-4BC5-BEBA-5EFF165EEE73">You typically set parameter dependencies for use by the <a class="xref xref" href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/programming-a-toolvalidator-class.htm#GUID-2DAB1F14-CF04-49E9-BC35-66AEE5CCC497">Schema object</a>. There are two cases where the dependencies may already be set in the <span class="uicontrol">Parameters</span> tab of the tool's properties.</p><ul class="bulleted" id="UL_DFE2CE8789324CB7BD80D84655036E0C"><li id="GUID-92473BA5-C971-479A-9CDE-6E2544290C1F">For
+ an output dataset parameter whose type is Derived, the dependency is 
+the index of the parameter from which to derive the output.</li><li id="GUID-AAF3B1FB-2BC0-40CF-BE1D-E492CBBE671A">For
+ certain input data types, the dependency is the index of the parameter 
+containing the information used by the control, as shown in the table 
+below.</li></ul><h4 class="table title"></h4><table><colgroup width="*"></colgroup><colgroup width="*"></colgroup><colgroup width="*"></colgroup><thead><tr><th>Input data type</th><th>Dependent data type</th><th>Description</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-A484D8B4-13E2-417F-8B4F-E51FCCB3FC74">Field or SQL Expression</p></td><td rowspan="1" colspan="1"><p id="GUID-0EEB78A3-9117-47B4-ACF6-806B20924962">Table</p></td><td rowspan="1" colspan="1"><p id="GUID-4F39543D-267A-4C21-AE15-BF63094179E5">The table containing the fields.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-52AF0B6F-9CD4-40BC-AD75-88D2D5225388">INFO Item or INFO Expression</p></td><td rowspan="1" colspan="1"><p id="GUID-182B5AB3-A657-4D65-B06D-B5F5C1DD6F26">INFO Table</p></td><td rowspan="1" colspan="1"><p id="GUID-9D38D213-9BA8-40F9-99AB-A33A9CEFC019">The INFO table containing the items.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-2A02A105-0987-44AD-9DC4-62DACD686F69">Coverage Feature Class</p></td><td rowspan="1" colspan="1"><p id="GUID-D265704A-EA28-4246-921A-FD24C68EE55B">Coverage</p></td><td rowspan="1" colspan="1"><p id="GUID-E873910F-DC84-4B26-8B97-9D254C01A1D5">The coverage containing features.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-F575CA3D-DFB2-4EB0-A722-97B486873CC6">Area Units or Linear Units</p></td><td rowspan="1" colspan="1"><p id="GUID-03E23CDC-D42F-4B61-B7A6-AA9507A5E7CC">GeoDataset</p></td><td rowspan="1" colspan="1"><p id="GUID-19DA1CA2-8E6D-40B3-B6A7-DF2C0AF5D53F">A geographic dataset used to determine the default units.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-7FCE8E5D-3C62-4469-BDE1-4C3C9E07A0D5">Coordinate System</p></td><td rowspan="1" colspan="1"><p id="GUID-C7C3B764-6328-4AFB-B257-1B7CBCE6AF02">Workspace</p></td><td rowspan="1" colspan="1"><p id="GUID-145B03C1-5F45-4D15-BC21-BE4856F22B59">A workspace used to determine the default coordinate system.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-C9CD736D-8A9F-4909-9139-FBD43BA91517">Network Analyst Hierarchy Settings</p></td><td rowspan="1" colspan="1"><p id="GUID-9BA9FD84-2B40-4841-B926-C08B270BBB94">Network Dataset</p></td><td rowspan="1" colspan="1"><p id="GUID-58B22FCC-6E07-4477-822B-8B62CE1BF9E6">The network dataset containing hierarchy information.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-F9953F63-3C21-487E-8430-0BFE1F3FB8AC">Geostatistical Value Table</p></td><td rowspan="1" colspan="1"><p id="GUID-19DA04A4-C4F8-46E2-9966-8A0410A04912">Geostatistical Layer</p></td><td rowspan="1" colspan="1"><p id="GUID-257AB605-07B3-4745-9525-79F080095324">The analysis layer containing tables.</p></td></tr></tbody></table>Obtained from data types<p id="GUID-EC7A22E2-FCFB-495E-946D-62A2392FA466">Dependencies are typically set in the <span class="usertext">initializeParameters()</span> method:</p><div class="codeblock"><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">initializeParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c"># Set the dependencies for the output and its schema properties</span>
+    <span class="c">#</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">parameterDependencies</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+
+</div></section><section class="section2 padded-anchor" id="GUID-054E2F6E-DFDB-44B8-B22E-52A6322B0FA4" purpose="section2"><h3><span class="usertext">value</span></h3><p id="GUID-DB598882-4771-47BD-97D6-CD0D04017878">This is the value of the parameter that the user entered or you set programmatically. You can set the value in <span class="usertext">initializeParameters()</span>, in which case it serves as the initial default value for the parameter. You can also set values in <span class="usertext">updateParameters()</span> in response to user input as shown below.</p><div class="codeblock"><p class="codeblock-desc"></p><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">updateParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c"># Set the default distance threshold to 1/100 of the larger of the width</span>
+    <span class="c">#  or height of the extent of the input features.  Do not set if there is no </span>
+    <span class="c">#  input dataset yet, or the user has set a specific distance (Altered is true).</span>
+    <span class="c">#</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">valueAsText</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">altered</span><span class="p">:</span>
+            <span class="n">extent</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">Describe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">extent</span>
+        <span class="k">if</span> <span class="n">extent</span><span class="o">.</span><span class="n">width</span> <span class="o">&gt;</span> <span class="n">extent</span><span class="o">.</span><span class="n">height</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">extent</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">100</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">extent</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">100</span>
+
+    <span class="k">return</span>
+</code></pre></div>
+</div><p></p><p id="GUID-0EF56410-D4C7-4901-9BAD-7567B97EB05F">A parameter's <span class="usertext">value</span> property returns an object, unless the parameter isn't populated, in which case the <span class="usertext">value</span> returns <span class="usertext">None</span>.  To safeguard against a parameter not being populated, use a <span class="usertext">if</span> check prior to using its value.</p><p id="GUID-394F715E-FF0D-414A-91FC-A818AD6DDC1A">The
+ code snippet below tests whether the value is equal to the string "Get 
+Spatial Weights From File". This test works because the parameter data 
+type is a string.</p><div class="codeblock"><div class="highlight"><pre><code><span class="c"># If the option to use a weights file is selected, enable the </span>
+<span class="c">#   parameter for specifying the file, otherwise disable it</span>
+
+<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>  <span class="c"># check that parameter has a value</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s">"Get Spatial Weights From File"</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="bp">False</span>
+</code></pre></div>
+
+</div><p id="GUID-867B75B3-EF63-4722-A3AE-3F83801436D7">As a <span class="usertext">Value</span>
+ object does not support string manipulation, use the Value object's 
+value property whenever a string is to be manipulated or parsed.  The 
+code sample uses the <span class="usertext">os.path.dirname</span> method to return the directory from a dataset.</p><div class="codeblock"><div class="highlight"><pre><code><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+    <span class="n">workspace</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</code></pre></div>
+
+</div><aside class="note" id="GUID-E3E46296-CA28-479B-B9A6-84FCA7A65811"><h5 class="icon-caution-cone">Caution:</h5><div class="note-content"><p id="GUID-0CC1F255-BCE2-4CDB-8A2F-8FF134167495">With the exception of <span class="usertext">Describe</span>, don't use methods that take a catalog path, such as <span class="usertext">ListFields</span>,
+ in validation. The dataset may not exist when your tool is validated in
+ ModelBuilder, and the method may fail or give unexpected results.</p><p id="GUID-B4C8FCDC-E1DF-4CCD-B58C-0E9448F3AB97"><span class="usertext">Describe</span> can be used on a <span class="usertext">Parameter</span> object directly instead of using the <span class="usertext">Parameter</span>'s <span class="usertext">value</span> property. Using a <span class="usertext">Parameter</span>'s <span class="usertext">value</span> property is still valid, but will be considerably slower when working with layer inputs.</p><p id="GUID-BCD14987-57EE-4D02-AFF3-D3E7493FE8A4">In the specific case of <span class="usertext">ListFields</span>, the <span class="usertext">Describe</span> object's <span class="usertext">fields</span> property will provide the equivalent information.</p></div></aside><aside class="note" id="GUID-7B30434D-1724-42D9-98E8-D072E20A697D"><h5 class="icon-caution-cone">Caution:</h5><div class="note-content"><p id="GUID-DCC766BD-5FA9-465E-9CE2-5B2EE2840FAE">Don't set a parameter value in <span class="usertext">updateMessages()</span> since the value will not be validated by the internal validation routine.</p></div></aside></section><section class="section2 padded-anchor" id="GUID-9A82029E-3883-40C7-90B5-6A32390902CE" purpose="section2"><h3><span class="usertext">altered</span></h3><p id="GUID-C06A2E92-0C8B-4683-946A-9BF6B09E76BA"><span class="usertext">altered</span>
+ is true if the user changed the value of a parameter—by entering an 
+output path, for example. Once a parameter has been altered, it remains 
+altered until the user empties (blanks out) the value, in which case it 
+returns to being unaltered. Programmatically changing a value with 
+validation code does not change the altered state. That is, if you set a
+ value for a parameter, the altered state of the parameter does not 
+change.</p><p id="GUID-15FAB881-316A-4E8B-957A-66BCDE203C0E"><span class="usertext">altered</span>
+ is used to determine whether you can change the value of a parameter. 
+As an example, suppose a tool has a feature class parameter and a 
+keyword parameter. If the feature class contains points or polygons, the
+ keywords are RED, GREEN, and BLUE, and if lines, ORANGE, YELLOW, 
+PURPLE, and WHITE.</p><p id="GUID-C44A414C-75F3-406B-91FC-37FB92EA7A2F">Suppose
+ the user enters a point feature class. If the keyword parameter is 
+unaltered, you set the value to RED, since it's the default value.</p><p id="GUID-2D48061D-3921-4DA7-BB55-21A742FB00B6">If a line feature class is entered, you set the default value to ORANGE as long as the keyword parameter is unaltered.</p><p id="GUID-15ED3D8B-7FC0-40A4-9C01-56EB8E5A887C">However,
+ if the keyword parameter has been altered by the user (that is, the 
+keyword is set to GREEN), you should not reset the keyword—the user has 
+made their choice (GREEN) and you don't know their intention—they may 
+change the feature class so that GREEN is valid or they may change the 
+keyword (to PURPLE, for example). Since GREEN isn't a member of the set 
+of keywords you created for lines, internal validate flags the parameter
+ an error. The user has two options at this point: change the input 
+feature class or change the keyword.</p><div class="codeblock"><div class="highlight"><pre><code><span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">altered</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">"POINT"</span>
+</code></pre></div>
+
+</div></section><section class="section2 padded-anchor" id="GUID-7BB6CB76-B030-41F0-B609-F54EE0027C27" purpose="section2"><h3><span class="usertext">hasBeenValidated</span></h3><p id="GUID-D366C8A5-E178-4D60-84A6-B0574FCF3630"><span class="usertext">hasBeenValidated</span> is false if a parameter's value has been modified by the user since the last time <span class="usertext">updateParameters()</span> and internal validate was called. Once internal validate has been called, geoprocessing automatically sets <span class="usertext">hasBeenValidated</span> to true for every parameter.</p><p id="GUID-D90EB1C4-4C07-4D27-AA6A-6D99086F6BA7"><span class="usertext">hasBeenValidated</span> is used to determine whether the user has changed a value since the last call to <span class="usertext">updateParameters()</span>. You can use this information in deciding whether to do your own checking of the parameter.</p><div class="codeblock"><div class="highlight"><pre><code><span class="c"># Set the default distance threshold to 1/100 of the larger of the width</span>
+<span class="c">#  or height of the extent of the input features. Do not set if there is no </span>
+<span class="c">#  input dataset yet, or if the input features have already been validated,</span>
+<span class="c">#  or the user has set a specific distance (Altered is true).</span>
+<span class="c"># </span>
+<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">valueAsText</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hasBeenValidated</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">altered</span><span class="p">:</span> 
+        <span class="n">extent</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">Describe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">extent</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="n">extent</span><span class="o">.</span><span class="n">width</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">extent</span><span class="o">.</span><span class="n">height</span>
+        <span class="k">if</span> <span class="n">width</span> <span class="o">&gt;</span> <span class="n">height</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">100</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">100</span>
+</code></pre></div>
+
+</div></section><section class="section2 padded-anchor" id="GUID-4BFCB0B1-80CA-48BB-AF78-655FF528A9BA" purpose="section2"><h3><span class="usertext">category</span></h3><p id="GUID-78EB5385-F2F3-4CAE-BDBC-EA59C35A529E">Parameters
+ can be grouped into different categories to minimize the size of the 
+tool dialog box or to group related parameters that will be infrequently
+ used. Several <span class="ph">ArcGIS Network Analyst extension</span> tools use categories, as shown below.</p><p id="GUID-1BBF7BAC-3BB4-45DF-B8DD-D0C16704299B"><img src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/GUID-FA1222B1-26F2-422A-AD97-297AC29EE62D-web.png" alt="Parameter categories" title="Parameter categories"></p><p id="GUID-9065F760-51CA-414A-9E29-94A3F4D96F29">Since you can only set the category once, set it in <span class="usertext">initializeParameters()</span>. Setting categories in <span class="usertext">updateParameters()</span> has no effect. The code below shows putting parameters 4 and 5 into the <span class="usertext">Options</span> category and parameters 6 and 7 into the <span class="usertext">Advanced</span> category.</p><div class="codeblock"><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">initializeParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="s">"Options"</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="s">"Options"</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="s">"Advanced"</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="s">"Advanced"</span>
+</code></pre></div>
+
+</div><p id="GUID-F0D2CBB6-4624-48EC-B7AB-20CD917FA22C">Categories are 
+always shown after noncategorized parameters. Do not put required 
+parameters into categories, since the user may not see them on the tool 
+dialog box.</p></section><section class="section2 padded-anchor" id="GUID-E827DB42-DD7A-4224-B335-FCC45EF643BB" purpose="section2"><h3><span class="usertext">symbology</span></h3><p id="GUID-7789657E-54C6-4B46-BBD3-E22615CDBAA0">The <span class="usertext">symbology</span> property associates a layer file (<span class="usertext">.lyrx</span>) with an output parameter.</p><div class="codeblock"><p class="codeblock-desc"></p><div class="highlight"><pre><code><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">symbology</span> <span class="o">=</span> <span class="s">"E:/tools/extraction/ToolData/ClassByDist.lyrx"</span>
+</code></pre></div>
+</div><p id="GUID-C7E0D22D-E8E7-4A1A-89A4-EF1E5EFC0606"><a class="xref xref" href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/setting-script-tool-parameters.htm#GUID-8DEADD3F-987F-462D-A3A7-4E5B44BC4529">Learn more about output symbology</a></p></section></section><section class="section1 padded-anchor" id="GUID-2DAB1F14-CF04-49E9-BC35-66AEE5CCC497" purpose="section1"><h2><span class="usertext">schema</span> object</h2><p id="GUID-6E1C26D7-F6E3-46A0-8DA2-984E26FEDA5D">Every
+ output parameter of type feature class, table, raster, or workspace has
+ a schema object. Only output feature classes, tables, rasters, and 
+workspaces have a schema—other types do not. The schema object is 
+created for you by geoprocessing. You access this schema through the 
+parameter object and set the rules for describing the output of your 
+tool. After you set the schema rules, and on return from the <span class="usertext">ToolValidator</span> class, the geoprocessing internal validation code examines the rules you set and updates the description of the output.</p><p id="GUID-97D5179F-7696-42DA-B838-054F1F1C9362">To review, the flow of control is as follows:</p><ol id="GUID-5DC2722C-9F3B-483B-87DE-9115BA141B33"><li id="GUID-38489E99-21E6-4430-A233-5611421430DD">When the tool dialog box is first opened, <span class="usertext">initializeParameters()</span>
+ is called. You set up the static rules (rules that don't change based 
+on user input) for describing the output. No output description is 
+created at this time, since the user hasn't specified values for any of 
+the parameters (unless you've provided default values).</li><li id="GUID-32EDE8DF-27B2-4DB7-8FE9-36A225DBAF8D">Once the user interacts with the tool dialog box in any way, <span class="usertext">updateParameters()</span> is called.</li><li id="GUID-A388DEC9-D136-4ECE-B695-F02B1BCA10AA"><span class="usertext">updateParameters()</span>
+ can modify the schema object to account for dynamic behavior that can't
+ be determined from the parameter dependencies (such as adding a new 
+field like Add Field).</li><li id="GUID-0E172E95-95DE-4B63-BE3C-456232692098">After returning from <span class="usertext">updateParameters()</span>,
+ the internal validation routines are called and the rules found in the 
+schema object are applied to update the description of the output data.</li><li id="GUID-6C4EE9CE-08D7-4761-9DB2-321F087A25B5"><span class="usertext">updateMessages()</span>
+ is then called. You can examine the warning and error messages that 
+internal validation may have created and modify them or add your own 
+custom warning and error messages.</li></ol><p id="GUID-9B154835-3447-4E2E-BCC5-4EFD115C8938">All <span class="usertext">schema</span> properties are read and write except for <span class="usertext">type</span>, which is read-only.</p><h4 class="table title"></h4><table><colgroup width="*"></colgroup><colgroup width="*"></colgroup><thead><tr><th>Property name</th><th>Value(s)</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-9EDC7D55-2337-400C-ACEE-5A97AB867ED8"><span class="usertext">type</span></p></td><td rowspan="1" colspan="1"><p id="GUID-2D70D18E-BFC7-43CA-A63A-5E098EBDD03E">String: "Feature", "Table", "Raster" , "Container" (for workspaces and feature datasets) (Read-only property)</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-2617FA80-EA45-4E6C-9F58-D9D4BAE6153C"><span class="usertext">clone</span></p></td><td rowspan="1" colspan="1"><p id="GUID-74507A62-1D41-4CD6-86D5-4450AAE5434B">Boolean</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-94DBE0E6-1379-49FC-9E2B-97B577669BE6"><span class="usertext">featureTypeRule</span>
+</p></td><td rowspan="1" colspan="1"><p id="GUID-DE8A4662-A5CC-4118-B7E9-A01AC32B45FC">String: "AsSpecified", "FirstDependency"</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-F5978207-E099-4651-8DB7-1C8D888D2201"><span class="usertext">featureType</span>
+</p></td><td rowspan="1" colspan="1"><p id="GUID-9BE3C5FE-A48D-4E42-BA6C-03F4055A40F6">String: "Simple", "Annotation", "Dimension"</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-7F7BFE36-2EF7-49B1-AE9A-1F232B885F05"><span class="usertext">geometryTypeRule</span>
+</p></td><td rowspan="1" colspan="1"><p id="GUID-AE70C37C-00BA-400A-A599-CEEA47E6DDE0">String: "Unknown", "FirstDependency", "Min", "Max", "AsSpecified"</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-D30640F2-EE2D-45FF-8952-24AC150467FB"><span class="usertext">geometryType</span>
+</p></td><td rowspan="1" colspan="1"><p id="GUID-F8CD567E-45CC-4496-A65D-3CA0A2B55207">String: "Point", "Multipoint", "Polyline", "Polygon"</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-30ACCDAA-E2F3-4F42-878F-8C1227EDB5F0"><span class="usertext">extentRule</span></p></td><td rowspan="1" colspan="1"><p id="GUID-6AC40F20-8EA6-4BC2-AB35-B095B07856E6">String: "AsSpecified", "FirstDependency", "Intersection", "Union", "Environment"</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-602C3130-58D3-4F90-B887-BF5F0A12E2B4"><span class="usertext">extent</span>
+</p></td><td rowspan="1" colspan="1"><p id="GUID-A164E843-26BF-4417-9D27-989098606A32">Extent object</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-E63972BE-D052-47B7-826E-65F50CC7E5F3"><span class="usertext">fieldsRule</span></p></td><td rowspan="1" colspan="1"><p id="GUID-697BA10A-A873-420B-83C5-153735C89033">String: "None", "FirstDependency", "FirstDependencyFIDs", "All", "AllNoFIDs", "AllFIDsOnly"</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-C16AA524-BF89-4561-9A5B-3B494E593CD1"><span class="usertext">additionalFields</span>
+</p></td><td rowspan="1" colspan="1"><p id="GUID-907F26C3-5CC2-48AC-A99F-FD6953B0D39C">Python list of field objects</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-CF680B9F-D27D-4C54-97A3-768C73052BF6"><span class="usertext">cellSizeRule</span>
+</p></td><td rowspan="1" colspan="1"><p id="GUID-D80EA1F8-31E8-4801-83E8-598B8CDC41B0">String: "AsSpecified", "FirstDependency", "Min", "Max", "Environment"</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-4E9135EE-BE39-47E9-978E-3ADE9CCCC546"><span class="usertext">cellsize</span></p></td><td rowspan="1" colspan="1"><p id="GUID-6D85612B-711C-4A54-8BA4-586C785CC5F6">Double</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-9C46A6B3-892F-400D-A468-1F4ADC9B9062"><span class="usertext">rasterRule</span>
+</p></td><td rowspan="1" colspan="1"><p id="GUID-F3E87AB0-48F9-4C22-A9FA-CDE9A8FF8490">String: "FirstDependency", "Min", "Max", "Integer", "Float"</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-5AD6F183-8D1A-4922-BF16-03371EC591D3"><span class="usertext">rasterFormatRule</span>
+</p></td><td rowspan="1" colspan="1"><p id="GUID-C02B67B5-28D7-4273-8427-8E94BBA47897">String: "Img", "Grid"</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-C9275D76-20CF-4BC7-AEC5-CC760CE9B8F6"><span class="usertext">additionalChildren</span>
+</p></td><td rowspan="1" colspan="1"><p id="GUID-07B940D4-F247-46C0-9884-31BED514B1C0">Python list of datasets to add to a workspace schema</p></td></tr></tbody></table>Schema object properties<section class="section2 padded-anchor" id="GUID-0F3D5053-1716-4008-B8B9-7E93F43DDBAA" purpose="section2"><h3>Using FirstDependency</h3><p id="GUID-81BE8996-837E-44F8-A00D-6E8241B87DA4">Several
+ of the rules can be set to "FirstDependency", which means to use the 
+value of the first parameter found in parameter dependency array set 
+with <span class="usertext">parameter.parameterDependencies</span>. In the code example below, parameter 2 has two dependent parameters, 0 and 1, and the first dependency is parameter 0.</p><div class="codeblock"><div class="highlight"><pre><code><span class="c"># Set the dependencies for the output and its schema properties</span>
+<span class="c">#</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">parameterDependencies</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+
+</div><p id="GUID-E07B60F0-0B22-4373-A958-29EB2A4CC61F">If any dependent parameter is a multivalue (a list of values), the first value in the multivalue list is used.</p></section><section class="section2 padded-anchor" id="GUID-A3D2755D-A05B-4715-A145-D6E0DCF790BA" purpose="section2"><h3><span class="usertext">type</span></h3><p id="GUID-99A05345-55BE-4ABC-A62F-89AA80FAA4E6">The <span class="usertext">type</span> property is read-only and is set by geoprocessing.</p></section><section class="section2 padded-anchor" id="GUID-F9E252B6-2B38-41C5-AB10-E735A1576697" purpose="section2"><h3><span class="usertext">clone</span></h3><p id="GUID-4687238A-6367-44A8-BC63-9A9EF4FDEEB5">If
+ true, you are instructing geoprocessing to make an exact copy (clone) 
+of the description in the first dependent parameter. The default value 
+is false. Typically, you set <span class="usertext">clone</span> to true in the <span class="usertext">initializeParameters()</span> method. If the first dependent parameter is a multivalue (a list of values), the first value in the multivalue list is cloned.</p><ul class="bulleted" id="UL_CACE718F30504E5A8453E508DA1BC4BC"><li id="GUID-5F89B4DB-E3F0-40B8-AC0A-9A105F789AEE">If <span class="usertext">parameter.parameterType</span> is "Derived", an exact copy is made. This is the behavior of the <span>Add Field</span> tool.</li><li id="GUID-7540F4C0-A6C7-41D7-93CD-9C9DEF1048E8">If <span class="usertext">parameter.parameterType</span>
+ is "Required", an exact copy is also made, but the catalog path to the 
+dataset is changed. Catalog paths consist of two parts: the workspace 
+and the base name. For example<p id="GUID-6EA81910-AF3B-4E23-8DB9-1A2F71A48E84"><span class="usertext"></span><span class="usertext">E:/Data/TestData/netcity.gdb/infrastructure/roads</span></p><p id="GUID-C8C4D32C-0764-4959-B983-3861AFFFE6FE"></p><ul class="bulleted" id="UL_870BFD87A09C45A09B93DC81C9E84617"><li id="LI_0B89AA3529674FE5BEA9B808981656B3">Workspace = <span class="usertext">E:/Data/TestData/netcity.gdb/infrastructure</span> </li><li id="LI_0642649690F648C6A7D0D56F7BB9D1C9">Base name = <span class="usertext">roads</span></li></ul> The rules used to construct new output names are as follows:<ul class="bulleted" id="UL_3EF374BDD72F4DBEB0AE5AFF23AE7801"><li id="GUID-64204DEC-E634-4F76-B063-948BEFEAA8DA">The
+ base name is the same as the base name of the first input parameter 
+containing a dataset (not the first dependency but the first parameter) 
+appended with the name of the script tool (for example, <span class="usertext">roads_MyTool</span>).</li><li id="GUID-56E21386-0A97-4DB6-9B50-4C8CF6C527E6">The
+ workspace is set to the scratch workspace environment setting. If this 
+is empty, the current workspace environment setting is used. If this is 
+empty, the workspace of the first input parameter containing a dataset 
+is used. If this workspace is read-only, then the system temp directory 
+is used.</li></ul><p></p></li></ul><p id="GUID-911491B7-DCE2-4E38-B562-ACBDA30C3127">After setting <span class="usertext">clone</span> to true, all rule-based methods, such as <span class="usertext">featureTypeRule</span>, <span class="usertext">geometryTypeRule</span>, and <span class="usertext">extentRule</span>, are set to "FirstDependency".</p><p id="GUID-67C85409-369A-45D7-9710-58BF57982800">The two code examples below do the equivalent work. Both examples are based on how the <span>Clip</span> tool creates the output schema.</p><div class="codeblock"><h5 class="codeblock-title">Example 1: Explicitly setting all rules</h5><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">initializeParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c"># Set the dependencies for the output and its schema properties</span>
+    <span class="c">#  The two input parameters are feature classes.</span>
+    <span class="c">#</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">parameterDependencies</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="c"># Feature type, geometry type, and fields all come from the first </span>
+    <span class="c">#  dependency (parameter 0), the input features</span>
+    <span class="c">#</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">featureTypeRule</span> <span class="o">=</span> <span class="s">"FirstDependency"</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">geometryTypeRule</span> <span class="o">=</span> <span class="s">"FirstDependency"</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">fieldsRule</span> <span class="o">=</span> <span class="s">"FirstDependency"</span>
+
+    <span class="c"># The extent of the output is the intersection of the input features </span>
+    <span class="c">#  and the clip features (parameter 1)</span>
+    <span class="c">#</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">extentRule</span> <span class="o">=</span> <span class="s">"Intersection"</span>
+
+    <span class="k">return</span>
+</code></pre></div>
+
+</div><div class="codeblock"><h5 class="codeblock-title">Example 2: using <span class="usertext">clone</span> to set rules to FirstDependency, then overriding the extent rule:</h5><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">initializeParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c"># Set the dependencies for the output and its schema properties</span>
+    <span class="c">#  The two input parameters are feature classes.</span>
+    <span class="c">#</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">parameterDependencies</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">clone</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">return</span>
+    
+<span class="k">def</span> <span class="nf">updateParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c"># The only property of the clone that changes is that the extent </span>
+    <span class="c">#  of the output is the intersection of the input features </span>
+    <span class="c">#  and the clip features (parameter 1)</span>
+    <span class="c">#</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">extentRule</span> <span class="o">=</span> <span class="s">"Intersection"</span>
+    <span class="k">return</span>
+</code></pre></div>
+
+</div></section><section class="section2 padded-anchor" id="GUID-5A43E86A-5A2B-4AFB-9DAC-40D830A4B3F4" purpose="section2"><h3><span class="usertext">featureTypeRule</span></h3><p id="GUID-08C9F669-E8A2-4A62-9E72-22ABD3D27BD5">This setting determines the feature type of the output feature class. This rule has no effect on output rasters or tables.</p><h4 class="table title"></h4><table><colgroup width="*"></colgroup><colgroup width="*"></colgroup><thead><tr><th>Value</th><th>Description</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-A3C480CD-50CA-4D86-B319-DFC7BFA3069B">"AsSpecified"</p></td><td rowspan="1" colspan="1"><p id="GUID-B2AD3464-E460-47BB-8AB1-7076696B6074">The feature type will be determined by the <span class="usertext">featureType</span> property.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-DDE6F3D8-C7FC-4291-AB11-2BE23E30555B">"FirstDependency"</p></td><td rowspan="1" colspan="1"><p id="GUID-96D4357F-AAA0-466A-A380-585B550430C2">The
+ feature type will be the same as the first parameter in the 
+dependencies. If the first dependent parameter is a multivalue (a list 
+of values), the first value in the multivalue list is used.</p></td></tr></tbody></table><span class="usertext">featureTypeRule</span> values</section><section class="section2 padded-anchor" id="GUID-3187AEE0-FEE4-42A7-8E71-DFD3BACD2107" purpose="section2"><h3><span class="usertext">featureType</span></h3><p id="GUID-C7D609FA-30FC-4B3E-ACE6-3772E978970F">When the <span class="usertext">featureTypeRule</span> is "AsSpecified", the value in <span class="usertext">featureType</span> is used to specify the feature type of the output.</p><h4 class="table title"></h4><table><colgroup width="*"></colgroup><colgroup width="*"></colgroup><thead><tr><th>Value</th><th>Description</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-3F6C0189-377D-4084-8252-B2E1903E50C4">"Simple"</p></td><td rowspan="1" colspan="1"><p id="GUID-8C2FA6BB-EF0E-4E28-982C-115D14A26302">The output will contain simple features. The geometry type of the features is specified with <span class="usertext">geometryTypeRule</span>.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-8530CDCC-E4C0-4983-A667-DA473ADEB402">"Annotation"</p></td><td rowspan="1" colspan="1"><p id="GUID-D80A186C-4FB6-4237-B539-E6B1822A404A">The output will contain annotation features.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-56D9A961-E463-4B26-8101-0D7375A160C8">"Dimension"</p></td><td rowspan="1" colspan="1"><p id="GUID-500544B8-1CAF-4070-B86C-C70B3583F0D3">The output will contain dimension features.</p></td></tr></tbody></table><span class="usertext">featureType</span> values</section><section class="section2 padded-anchor" id="GUID-FF27353C-7EA6-45A3-AD52-0DBC80325AE3" purpose="section2"><h3><span class="usertext">geometryTypeRule</span></h3><p id="GUID-844C73E1-34C4-48CD-BF3D-10D59840D6E3">This setting determines the geometry type (such as point or polygon) of the output feature class.</p><h4 class="table title"></h4><table><colgroup width="*"></colgroup><colgroup width="*"></colgroup><thead><tr><th>Value</th><th>Description</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-264D3B70-9CE5-41F5-B6AC-3215415B310B">"Unknown"</p></td><td rowspan="1" colspan="1"><p id="GUID-070265A7-8B15-408B-AD6F-B8A0319B6765">This is the default setting. Typically, you should be able to determine the geometry type in <span class="usertext">updateParameters()</span>
+ based on the values of other parameters. You'd only set the rule to 
+"Unknown" if you don't have enough information to determine the geometry
+ type.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-48E50124-F055-49AD-867F-2CB099CDE850">"FirstDependency"</p></td><td rowspan="1" colspan="1"><p id="GUID-0AB5A3D3-6D1D-4A5B-879B-399F1DA880F9">The
+ geometry type is the same as the first dependent parameter. If the 
+first dependent parameter is a multivalue (a list of values), the first 
+value in the multivalue list is used.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-6BB5FD55-3B69-4AB4-9888-75600AD93DAB">"Min", "Max"</p></td><td rowspan="1" colspan="1"><p id="GUID-228499EB-B662-4D3F-B60D-71935E20F5B6">Examines
+ the geometries of all dependent parameters and sets the output geometry
+ type to the minimum or maximum type found. "Min" and "Max" are defined 
+as follows: </p><ul class="bulleted" id="UL_EC348AA8766A4015BC63F69B987EC0D1"><li id="LI_B537F4DA18DC4604BFD36636E4FE1F86">Point and Multipoint = 0
+</li><li id="LI_39E4F474ACBE46D08A95E91E12428556">Polyline = 1</li><li id="LI_16CC7E9F217F483EA4683549C53EDFA6">Polygon = 2</li></ul>
+ So, if the dependent parameters were a point and polygon feature class,
+ the minimum would be point, and the maximum would be polygon.<p></p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-8F0101BF-CD28-4764-BC34-BA191B8981FF">"AsSpecified"</p></td><td rowspan="1" colspan="1"><p id="GUID-EC47B38C-E9C5-4AFA-8B84-EC9ECBF7CFF7">The geometry type will be determined by the value of the <span class="usertext">geometryType</span> property.</p></td></tr></tbody></table><span class="usertext">geometryTypeRule</span> values</section><section class="section2 padded-anchor" id="GUID-B7A9F76F-9C1B-477A-940F-D5E7CDB50AE6" purpose="section2"><h3><span class="usertext">geometryType</span></h3><p id="GUID-E8952113-D303-4C5C-87EC-D87869E5EB59">Set this to the geometry type to use (either "Point", "Multipoint", "Polyline", or "Polygon") when <span class="usertext">geometryTypeRule</span> is "AsSpecified".</p></section><section class="section2 padded-anchor" id="GUID-BAD6D4D2-C20E-451A-B9F0-7461599F2269" purpose="section2"><h3><span class="usertext">extentRule</span></h3><h4 class="table title"></h4><table><colgroup width="*"></colgroup><colgroup width="*"></colgroup><thead><tr><th>Value</th><th>Description</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-497DE62F-2620-436E-ABA6-933AE937183B">"AsSpecified"</p></td><td rowspan="1" colspan="1"><p id="GUID-02BCDEC5-9C92-4954-8548-42EB9A54A1B4">The output extent will be specified in the <span class="usertext">extent</span>  property.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-62A23F6C-4722-49D3-9114-3EBDFB0C6AE8">"FirstDependency"</p></td><td rowspan="1" colspan="1"><p id="GUID-CB4DC7F9-7A08-45FA-BA8B-EFFB87FE8E8F">The
+ output extent is the same as the first dependent parameter. If the 
+first dependent parameter is a multivalue (a list of values), the first 
+value in the multivalue list is used.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-5A0379EC-9F50-4771-9080-E2BF1C5325A1">"Intersection"</p></td><td rowspan="1" colspan="1"><p id="GUID-8418E6F2-B336-4BA7-8E76-F83E76E93035">The output extent will be the geometric intersection of all dependent parameters. (This is what the <span><a class="xref xref" esrisubtype="extrel" hrefpfx="/en/pro-app/tool-reference" href="http://pro.arcgis.com/en/pro-app/tool-reference/data-management/clip.htm">Clip</a></span> tool uses, as shown below.)</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-393B4373-0EC3-42BF-96D6-D75A6F515CF5">"Union"</p></td><td rowspan="1" colspan="1"><p id="GUID-C927BCC8-230F-4E5C-9117-C422D9468AF4">The output extent will be the geometric union of all dependent parameters.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-94078319-74F0-4DEC-872F-CD13E4058EEA">"Environment"</p></td><td rowspan="1" colspan="1"><p id="GUID-80FAB909-BFE6-4F2C-BBBF-7E4CC2C0B3E9">The output extent will be calculated based on the <a class="xref xref" esrisubtype="extrel" hrefpfx="/en/pro-app/tool-reference" href="http://pro.arcgis.com/en/pro-app/tool-reference/environment-settings/output-extent.htm">output extent environment setting</a>.</p></td></tr></tbody></table><span class="usertext">extentRule</span> values<p id="GUID-0A16C06C-1FD4-46DD-8073-E988F32BC913">Example</p><div class="codeblock"><div class="highlight"><pre><code><span class="c"># The extent of the output is the intersection of the input features </span>
+<span class="c">#  and the clip features (the dependent parameters)</span>
+<span class="c">#</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">extentRule</span> <span class="o">=</span> <span class="s">"Intersection"</span>
+</code></pre></div>
+
+</div></section><section class="section2 padded-anchor" id="GUID-F501FADF-43DF-4466-9E05-FFEDE9F23953" purpose="section2"><h3><span class="usertext">extent</span></h3><p id="GUID-091AD7D6-9D9E-4B4B-8852-D66F0F347257">Set this to the extent to use when <span class="usertext">extentRule</span>
+ is "AsSpecified". You can either set the extent with a space-delimited 
+string or a  list with four values. The sequence is xmin, ymin, xmax, 
+ymax.</p><p id="GUID-63A973BA-DDA6-4033-9695-804CFB9D2644">Example</p><div class="codeblock"><div class="highlight"><pre><code><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">extentRule</span> <span class="o">=</span> <span class="s">"AsSpecified"</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">extent</span> <span class="o">=</span> <span class="s">"123.32 435.8 987.3 567.9"</span>
+<span class="c"># Alternatively use a list, as follows:</span>
+<span class="c"># self.params[2].schema.extent = [123.32, 435.8, 987.3, 567.9]</span>
+</code></pre></div>
+
+</div></section><section class="section2 padded-anchor" id="GUID-655465AC-E5DE-413B-B18E-D1895135226C" purpose="section2"><h3><span class="usertext">fieldsRule</span></h3><p id="GUID-37CF1329-0E32-4AD8-89BD-ADBEE46A9F67"><span class="usertext">fieldsRule</span> determines what fields will exist on the output feature class or table.</p><p id="GUID-5494900D-8B65-4328-B4E6-18D3FE615110">In the table below, FID stands for Feature ID but actually refers to the ObjectID field found on every feature class or table.</p><h4 class="table title"></h4><table><colgroup width="*"></colgroup><colgroup width="*"></colgroup><thead><tr><th>Value</th><th>Description</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-AA194CE0-5128-4F8E-83A7-EA422AA0D965">"None"</p></td><td rowspan="1" colspan="1"><p id="GUID-A991AABC-9823-4891-9DD4-C673243D0E15">No fields will be output except for the object ID.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-1B93722D-9137-4C9B-B727-4EE9F8791CF8">"FirstDependency"</p></td><td rowspan="1" colspan="1"><p id="GUID-F640DA17-29CD-420F-96B0-7C42AD7C5ADB">Output
+ fields will be the same as the first dependent parameter. If the first 
+dependent parameter is a multivalue (a list of values), the first value 
+in the multivalue list is used.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-D553FAAF-88C2-4474-A361-A2F5EBC6FDB4">"FirstDependencyFIDs"</p></td><td rowspan="1" colspan="1"><p id="GUID-938FF7AE-DE76-4597-800A-DE5E29030E90">Only the ObjectID of the first dependent input will be written to the output.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-03E10722-F79B-4F8F-9ABD-8B1E44655C59">"All"</p></td><td rowspan="1" colspan="1"><p id="GUID-6835B07E-BC4D-4EFE-9180-1CD87E30ECC7">All fields in the list of dependent parameters will be output.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-9F3B474C-79EB-4A06-8060-0682EDB91E73">"AllNoFIDs"</p></td><td rowspan="1" colspan="1"><p id="GUID-9F48089F-F6AE-4BD6-9555-2FFF3D3099A8">All fields except for the ObjectIDs will be written to the output.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-9E1F543E-A9C5-4F5A-A57A-3509BD37816E">"AllFIDsOnly"</p></td><td rowspan="1" colspan="1"><p id="GUID-122E6DC8-A9AB-4298-BBF8-8A3BB057C32B">All ObjectID fields are written to the output, but no other fields from the inputs will be written.</p></td></tr></tbody></table><span class="usertext">fieldsRule</span> values<p id="GUID-01E864F4-6802-4CD1-BAFA-C23E87A3EB20">Example of <span>Clip</span> using <span class="usertext">fieldsRule</span> of "FirstDependency"</p><div class="codeblock"><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">initializeParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c"># Set the dependencies for the output and its schema properties</span>
+    <span class="c">#  The two input parameters are feature classes.</span>
+    <span class="c">#</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">parameterDependencies</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="c"># Feature type, geometry type, and fields all come from the first </span>
+    <span class="c">#  dependency (parameter 0), the input features</span>
+    <span class="c">#</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">featureTypeRule</span> <span class="o">=</span> <span class="s">"FirstDependency"</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">geometryTypeRule</span> <span class="o">=</span> <span class="s">"FirstDependency"</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">fieldsRule</span> <span class="o">=</span> <span class="s">"FirstDependency"</span>
+
+    <span class="c"># The extent of the output is the intersection of the input features </span>
+    <span class="c">#  and the clip features (parameter 1)</span>
+    <span class="c">#</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">extentRule</span> <span class="o">=</span> <span class="s">"Intersection"</span>
+
+    <span class="k">return</span>
+</code></pre></div>
+
+</div></section><section class="section2 padded-anchor" id="GUID-95444CBF-1A2A-41EE-9FB5-1DE87741E6A5" purpose="section2"><h3><span class="usertext">additionalFields</span></h3><p id="GUID-C1650A37-8CE7-4D84-8EBB-1E5DB1A6D947">Besides the fields that are added by the application of the <span class="usertext">fieldsRule</span>, you can add additional fields to the output. <span class="usertext">additionalFields</span> takes a Python list of field objects.</p></section><section class="section2 padded-anchor" id="GUID-7F72EA7A-A3F8-418F-BA15-D3BEE680F87A" purpose="section2"><h3><span class="usertext">cellSizeRule</span></h3><p id="GUID-5784CFF3-1212-4440-8636-C65417961FD7">This determines the cellsize of output rasters or grids.</p><h4 class="table title"></h4><table><colgroup width="*"></colgroup><colgroup width="*"></colgroup><thead><tr><th>Value</th><th>Description</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-70BC293E-2BFF-421C-9F98-FCCD7C5A263A">"AsSpecified"</p></td><td rowspan="1" colspan="1"><p id="GUID-E4F2C7F3-EE43-4612-B176-98B78324AA3F">The output cellsize is specified in the <span class="usertext">cellSize</span> property.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-FE1D1923-1956-464F-B2DE-B04AB1E36547">"FirstDependency"</p></td><td rowspan="1" colspan="1"><p id="GUID-1B143FC9-6262-48B7-BA7A-5391B7601555">The
+ cell size is calculated from the first dependent parameter. If the 
+dependent parameter is a raster, then its cellsize is used. For other 
+types of dependent parameters, such as feature classes or feature 
+datasets, the extent of the data is used to calculate a cellsize. If the
+ first dependent parameter is a multivalue (a list of values), the first
+ value in the multivalue list is used.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-5145A533-EDCD-44A9-959B-D49E10929424">"Min", "Max"</p></td><td rowspan="1" colspan="1"><p id="GUID-1383D5A8-71A7-49B8-9FED-47C28BD8E0C1">"Min"
+ means the output cellsize is the smallest cellsize of the dependent 
+parameters. "Max" means it is the largest cellsize of the dependent 
+parameters.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-A487059E-196D-43BC-BD69-6D6A39B6A94E">"Environment"</p></td><td rowspan="1" colspan="1"><p id="GUID-89509115-EAEB-48E6-9D1A-BE745E70E9A4">The output cellsize is calculated based on the <a class="xref xref" esrisubtype="extrel" hrefpfx="/en/pro-app/tool-reference" href="http://pro.arcgis.com/en/pro-app/tool-reference/environment-settings/cell-size.htm">cellsize</a> environment setting.</p></td></tr></tbody></table><span class="usertext">cellSizeRule</span> values</section><section class="section2 padded-anchor" id="GUID-5097A0D2-6E38-4924-8681-399CDE2E70DD" purpose="section2"><h3><span class="usertext">cellSize</span></h3><p id="GUID-3C5A2839-F08A-4140-8A40-E3FCF999969B">Set this to the cellsize to use when <span class="usertext">cellSizeRule</span> is "AsSpecified".</p></section><section class="section2 padded-anchor" id="GUID-E7B2765F-5D01-42FC-9F4A-F023DFA6B3AE" purpose="section2"><h3><span class="usertext">rasterRule</span></h3><p id="GUID-8A9089C5-30F5-4875-97FB-4BF4EE3B4972">This determines the data type—integer or float—contained in the output raster.</p><h4 class="table title"></h4><table><colgroup width="*"></colgroup><colgroup width="*"></colgroup><thead><tr><th>Value</th><th>Description</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-75EAB6D6-58FB-40E4-B53D-48003B9C17F9">"FirstDependency"</p></td><td rowspan="1" colspan="1"><p id="GUID-09963954-3A77-4F18-83BC-5CAEB9BB1A81">The
+ data type (integer or float) is the same as the first dependent 
+parameter. If the first dependent parameter is a multivalue (a list of 
+values), the first value in the multivalue list is used.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-CCCEFF5E-A27E-47AC-898C-AE6ED27A29D2">"Min", "Max"</p></td><td rowspan="1" colspan="1"><p id="GUID-C2E92D9D-C51D-4934-9EA2-088AAF1AE242">Integer
+ is considered smaller than float. For example, if there are two 
+dependent parameters, one containing integers and the other containing 
+floats, "Min" creates an integer output, and "Max" creates a float 
+output.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-23295E09-7DDF-4C4C-9835-8B7E1BAC4517">"Integer"</p></td><td rowspan="1" colspan="1"><p id="GUID-03EAD5F1-DC5B-4549-8862-7E5CC19A5C49">The output raster contains integers (whole numbers).</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-65BBE057-C4AD-4B02-9D7C-4C8328D41B3E">"Float"</p></td><td rowspan="1" colspan="1"><p id="GUID-C50B5D76-1C20-4B2E-8425-54F7A446565F">The output raster contains floats (fractional numbers).</p></td></tr></tbody></table><span class="usertext">rasterRule</span> values</section><section class="section2 padded-anchor" id="GUID-9DC40480-DD6A-42EC-81C8-42340EF6BA4F" purpose="section2"><h3><span class="usertext">rasterFormatRule</span></h3><p id="GUID-EC01072F-308F-4A45-8B97-0D189A0FCB9A">This
+ determines the output raster format, either "Grid" or "Img". The 
+default is "Img", which is ERDAS IMAGINE format. "Grid" is Esri's 
+format.</p></section><section class="section2 padded-anchor" id="GUID-76DA801B-831A-4DEE-8D99-F0C715122E40" purpose="section2"><h3><span class="usertext">additionalChildren</span></h3><p id="GUID-3CA6D6CE-77F7-4FCD-9AEF-7939CF5B7170">A
+ workspace is a container for datasets (features, tables, and rasters). 
+These datasets are children of the workspace (think of the workspace as 
+the parent). If your tool adds datasets to a new or existing workspace, 
+you can update the description of the workspace by adding descriptions 
+of the children. For example, you may have a tool that takes a list of 
+feature classes (a multivalue), modifies them in some way, then writes 
+the modified feature classes to an existing workspace. When the tool is 
+used in ModelBuilder, the workspace is the derived output of the tool, 
+and you may want to use this workspace as input to the <span><a class="xref xref" esrisubtype="extrel" hrefpfx="/en/pro-app/tool-reference" href="http://pro.arcgis.com/en/pro-app/tool-reference/data-management/select-data.htm">Select Data</a></span> tool. <span>Select Data</span> allows you to select a child dataset found in a container and use it as input to another tool.</p><p id="GUID-C8BBCE3B-C6C3-4F39-94A4-B4352F012709">The input to <span class="usertext">additionalChildren</span> is one or more descriptions of the children. There are two forms of child descriptions:</p><h4 class="table title"></h4><table><colgroup width="*"></colgroup><colgroup width="*"></colgroup><thead><tr><th>Form</th><th>Description</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-AD8E9F0B-5CD2-4411-A23A-844C8A1862CF"> <span class="usertext">value</span> object</p></td><td rowspan="1" colspan="1"><p id="GUID-593998B8-6845-472A-B462-537677A7BDE8">A feature class, table, raster, dimension, or annotation value, as returned by the <span class="usertext">value</span> property.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-754386B8-822F-4FD5-9495-BEC3647DAE1E">Python list object of the form <span class="usertext">[type, name, fields, extent, spatial reference]</span></p></td><td rowspan="1" colspan="1"><p id="GUID-F7033FB1-2647-41C1-B8A8-73B9941BDDC4">A Python list containing a description of the child to be added. Only the first two entries in the list, <span class="usertext">type</span> and <span class="usertext">name</span>, are required. The remaining arguments are optional.</p></td></tr></tbody></table>Member lists for <span class="usertext">additionalChildren</span><p id="GUID-64608B78-DC77-4C78-AFF4-CE2675195ADA">When
+ adding more than one child, you provide a list of child descriptions. 
+If you're adding the children in list form, you'll create a list of 
+lists for <span class="usertext">additionalChildren</span>.</p><p id="GUID-20A7BD6C-6803-482E-B329-7B858F3CA49D"> The Python list form has five arguments, as described in the following table.</p><h4 class="table title"></h4><table><colgroup width="*"></colgroup><colgroup width="*"></colgroup><colgroup width="*"></colgroup><thead><tr><th>Argument</th><th>Type</th><th>Description</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-E634EBE8-046E-4E52-82C7-4E729F087895"><span class="usertext">type</span></p></td><td rowspan="1" colspan="1"><p id="GUID-94E9AE92-8795-49F2-A017-13E61530DC41">required</p></td><td rowspan="1" colspan="1"><p id="GUID-144BD84E-4B35-48CE-905E-2821A25A4D92">One of the following: "Point", "Multipoint", "Polyline", "Polygon", "Table", "Raster", "Annotation", "Dimension"</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-D68A5582-B46A-4DB3-B260-B877A09D167C"><span class="usertext">name</span></p></td><td rowspan="1" colspan="1"><p id="GUID-F1341C83-16F2-4FB1-84B9-5B1231EBF5A8">required</p></td><td rowspan="1" colspan="1"><p id="GUID-BEAB24EF-7702-4BC8-A596-E251648E889D">The name of the dataset. It can just be the base name of the dataset (<span class="usertext">"streets"</span>) or the full catalog path (<span class="usertext">"E:\mydata\test.gdb\infrastructure\streets"</span>). When a full catalog path is given, all but the base name ("<span class="usertext">streets</span>") is ignored.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-A0FCF87B-58CD-4420-8C53-27AD2E48F793"><span class="usertext">fields</span></p></td><td rowspan="1" colspan="1"><p id="GUID-BABF2327-3E33-4FC3-AFB8-D0D86FAD0AD4">optional</p></td><td rowspan="1" colspan="1"><p id="GUID-25FE7AC8-7062-4A41-9E25-0D5DD1ECC6ED">A Python list of field objects. This contains the fields appearing on the child, if known.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-2385A896-B193-4B38-B389-A91EDAAB8C98"><span class="usertext">extent</span></p></td><td rowspan="1" colspan="1"><p id="GUID-30365973-9CEF-49D8-8F7C-AFE6EC956D9A">optional</p></td><td rowspan="1" colspan="1"><p id="GUID-B6337CEF-6104-41DC-8CC6-17DBAFCB51B4">A string or Python list containing the spatial extent of the child.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-170AE192-922B-4BC8-A519-159D135E8875"><span class="usertext">spatial reference</span></p></td><td rowspan="1" colspan="1"><p id="GUID-D5567C85-38F0-4395-ADDF-790BDB398EE3">optional</p></td><td rowspan="1" colspan="1"><p id="GUID-C8D2B9FF-FD4C-4BFC-B829-E822E1B9D711">A spatial reference object.</p></td></tr></tbody></table>Contents of the child list<p id="GUID-F681C11B-684F-45EB-BE6B-F56916146EE0">These arguments must be supplied in the order shown. To skip over an optional argument, use a  <span class="usertext">None</span>, or <span class="usertext">'#'</span>.</p><p id="GUID-A3BD6B7F-BC35-4FB2-AB1C-F67442FF9E11">Following
+ are some examples of setting a workspace schema. The examples are based
+ on a script tool that has the following arguments:</p><h4 class="table title"></h4><table><colgroup width="*"></colgroup><colgroup width="*"></colgroup><colgroup width="*"></colgroup><thead><tr><th></th><th>Parameter name</th><th>Properties</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-81935CF6-B6E0-4326-9A08-A95B44AEA492">0</p></td><td rowspan="1" colspan="1"><p id="GUID-1B8ECF43-1A97-444B-9E19-2B4B0A1C97DC">Input feature class</p></td><td rowspan="1" colspan="1"><p id="GUID-1291D55C-62CE-4F68-A38C-9B92A2A8AC53">Feature class—input.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-5150711F-55A7-4736-82B4-58A57B8EA75C">1</p></td><td rowspan="1" colspan="1"><p id="GUID-3786C432-F9A1-46AE-BD46-3ED34FEF4E51">Input table</p></td><td rowspan="1" colspan="1"><p id="GUID-E7A549C4-DD0D-40ED-82C9-1CC9D8682020">Table—input.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-449F1E35-8C47-48F0-B6FD-269C0E617E39">2</p></td><td rowspan="1" colspan="1"><p id="GUID-943283E6-FB9D-4B8D-9EE5-B38BC2081482">Input workspace</p></td><td rowspan="1" colspan="1"><p id="GUID-EE59CB0D-F875-4D19-A2AC-931E83ED0587">Workspace—input (an existing workspace that contains the results of the tool).</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-8C271BFF-D62A-4C2E-B00A-00B360CD86DB">3</p></td><td rowspan="1" colspan="1"><p id="GUID-09529A78-F458-4187-B4F7-D5AC4765EE0D">Derived workspace</p></td><td rowspan="1" colspan="1"><p id="GUID-A18D814F-4321-4C2E-AFAC-0EFC01E9E6CB">Workspace—Derived
+ output, obtained from Input_workspace. The schema of this workspace is 
+modified to contain additional children.</p></td></tr></tbody></table>Example tool parameters<p id="GUID-08F2AA93-0F37-498A-BC46-4576BF646B57">The
+ tool takes the input feature class and table, copies both to the 
+workspace, adds a new field to the feature class, then creates a new 
+polygon feature class in the workspace. (The actual work of the tool 
+isn't important as it only serves to illustrate setting a workspace 
+schema.) The code examples below build on one another, starting with 
+simple usage of <span class="usertext">additionalChildren</span>.</p><p id="GUID-46536CDD-F1A4-48CF-B784-E0E1467416AC">In <span class="usertext">initializeParameters()</span>,
+ the output workspace is cloned from its dependent parameter (parameter 
+2). This dependency is set in the tool properties but can also be set in
+ <span class="usertext">initializeParameters()</span> to guard against someone removing the dependency in the tool's properties.</p><div class="codeblock"><div class="highlight"><pre><code><span class="k">class</span> <span class="nc">ToolValidator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">GetParameterInfo</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">initializeParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">parameterDependencies</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span>  <span class="c"># input workspace</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">clone</span> <span class="o">=</span> <span class="bp">True</span>  <span class="c"># Copy all existing contents to output</span>
+        <span class="k">return</span>
+</code></pre></div>
+
+</div><p id="GUID-1CDAC83C-9720-4A40-A8B4-E0B4E5E8B87A">Example: Copy the two inputs (no modifications) to the output workspace:</p><div class="codeblock"><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">updateParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">inFC</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>  <span class="c"># input feature class</span>
+    <span class="n">inTable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>  <span class="c"># input table</span>
+    <span class="n">inWS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>  <span class="c"># input workspace</span>
+    <span class="k">if</span> <span class="n">inFC</span> <span class="ow">and</span> <span class="n">inTable</span> <span class="ow">and</span> <span class="n">inWS</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">additionalChildren</span> <span class="o">=</span> <span class="p">[</span><span class="n">inFC</span><span class="p">,</span> <span class="n">inTable</span><span class="p">]</span>
+    <span class="k">return</span>
+</code></pre></div>
+
+</div><p id="GUID-0D5297B2-8508-4541-8C86-C496E2C5D62A">Example: The 
+tool creates a new polygon feature class. The only properties known 
+about this new feature class (when validating) are the name 
+("SummaryPolygon") and type ("polygon").</p><div class="codeblock"><div class="highlight"><pre><code><span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>    <span class="c"># New empty list</span>
+<span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inFC</span><span class="p">)</span>
+<span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inTable</span><span class="p">)</span>
+<span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s">"polygon"</span><span class="p">,</span> <span class="s">"SummaryPolygon"</span><span class="p">])</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">additionalChildren</span> <span class="o">=</span> <span class="n">children</span>
+</code></pre></div>
+
+</div><p id="GUID-A2363F22-18AF-4337-B0EF-CB6280227BEF">Example: Add a field to the input feature class.</p><div class="codeblock"><div class="highlight"><pre><code><span class="c"># Create a field object with the name "Category" and type "Long"</span>
+<span class="c">#</span>
+<span class="n">newField</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">Field</span><span class="p">()</span>
+<span class="n">newField</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"Category"</span>
+<span class="n">newField</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="s">"Long"</span>
+
+<span class="c"># Describe the input feature class in order to get its list of fields. The 9.3</span>
+<span class="c">#  version of the geoprocessing object returns fields in a Python list, unlike</span>
+<span class="c">#  previous versions, which returned fields in an enumerator.</span>
+<span class="c">#</span>
+<span class="n">desc</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">Describe</span><span class="p">(</span><span class="n">inFC</span><span class="p">)</span>
+<span class="n">fieldList</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">fields</span>
+
+<span class="c"># Add the new field to the list</span>
+<span class="c">#</span>
+<span class="n">fieldList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newField</span><span class="p">)</span>
+
+<span class="c"># Create a new child based on the input feature class, but with the </span>
+<span class="c">#  additional field added</span>
+<span class="c">#</span>
+<span class="n">newChild</span> <span class="o">=</span> <span class="p">[</span><span class="n">desc</span><span class="o">.</span><span class="n">shapeType</span><span class="p">,</span> <span class="n">desc</span><span class="o">.</span><span class="n">catalogPath</span><span class="p">,</span> <span class="n">fieldList</span><span class="p">,</span>
+            <span class="n">desc</span><span class="o">.</span><span class="n">extent</span><span class="p">,</span> <span class="n">desc</span><span class="o">.</span><span class="n">spatialReference</span><span class="p">]</span>
+
+<span class="c"># Now create our list of children and add to the schema</span>
+<span class="c">#</span>
+<span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newChild</span><span class="p">)</span>
+<span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inTable</span><span class="p">)</span>
+<span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s">"polygon"</span><span class="p">,</span> <span class="s">"SummaryPolygon"</span><span class="p">])</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">additionalChildren</span> <span class="o">=</span> <span class="n">children</span>
+</code></pre></div>
+
+</div><p id="GUID-350B0E5C-656D-406F-8DDF-F583CB71DD5F">To create fields for <span class="usertext">SummaryPolygon</span> (the new polygon feature class), create a list of field objects similar to the pattern shown in the above example.</p><p id="GUID-97AE766B-C02A-4C49-96B7-D5D3359F864D">Example: Multivalue input</p><p id="GUID-7D5C2135-CC02-4C29-B745-7EA69DFEA67B">In
+ this example, the first parameter is a multivalue of feature classes. 
+Each feature class in the multivalue is copied to the derived workspace.
+ A new field, "ProjectID", is added to each of the copied feature 
+classes.</p><div class="codeblock"><div class="highlight"><pre><code><span class="c"># 0 - input features (multivalue)</span>
+<span class="c"># 1 - input workspace</span>
+<span class="c"># 2 - derived workspace</span>
+
+<span class="kn">import</span> <span class="nn">arcpy</span> 
+
+<span class="k">class</span> <span class="nc">ToolValidator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">GetParameterInfo</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">initializeParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">parameterDependencies</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">clone</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">updateParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">inVT</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>  <span class="c"># multivalue ValueTable</span>
+        <span class="n">inWS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>  <span class="c"># WorkSpace</span>
+
+        <span class="c"># Add each feature class to the output workspace. In addition,</span>
+        <span class="c">#  add a new field "ProjectID" to each feature class</span>
+        <span class="c">#</span>
+        <span class="k">if</span> <span class="n">inVT</span> <span class="ow">and</span> <span class="n">inWS</span><span class="p">:</span>
+            <span class="n">rowCount</span> <span class="o">=</span> <span class="n">inVT</span><span class="o">.</span><span class="n">rowCount</span>  <span class="c"># Number of rows in the MultiValue table</span>
+            <span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">newField</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">Field</span><span class="p">()</span>
+            <span class="n">newField</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ProjectID"</span>
+            <span class="n">newField</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="s">"Long"</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">rowCount</span><span class="p">):</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">inVT</span><span class="o">.</span><span class="n">getValue</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+                    <span class="n">d</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">Describe</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                    <span class="n">fieldList</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">fields</span>
+
+                    <span class="c"># Note -- not checking if field already exists</span>
+                    <span class="c">#</span>
+                    <span class="n">fieldList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newField</span><span class="p">)</span>
+
+                    <span class="c"># Create new child with additional ProjectID field and</span>
+                    <span class="c">#  add child to list of children</span>
+                    <span class="c">#</span>
+                    <span class="n">child</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">shapeType</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">catalogPath</span><span class="p">,</span> <span class="n">fieldList</span><span class="p">]</span>
+                    <span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>            
+                      
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">additionalChildren</span> <span class="o">=</span> <span class="n">children</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">updateMessages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span>
+</code></pre></div>
+
+</div></section></section><section class="section1 padded-anchor" id="GUID-40D99D78-5DFB-4D66-A304-B5858E836E70" purpose="section1"><h2><span class="usertext">filter</span> object</h2><p id="GUID-9D66CB07-E047-499B-A253-A41059E96809">The <span class="usertext">filter</span>
+ object allows you to specify the choices available to the user for a 
+parameter. For example, you can set up a field filter that limits 
+choices to just text fields. A filter does three jobs:</p><p id="GUID-2682E9B1-714D-4FFA-9926-39E9A11B280C"></p><ul class="bulleted" id="UL_382E947A77CA47FDA2907EAB24C2BDD1"><li id="GUID-6B4A6598-0543-4409-9EC5-B12D87690D3E">A
+ filter only presents the user with valid choices when browsing for 
+data. If you set your filter for point feature classes, only point 
+feature classes are shown when the user browses for data. If you set 
+your filter for text fields, the drop-down list of fields only shows 
+text fields.</li><li id="GUID-34534754-06DB-4F21-8EDA-EE284BC023DA">If a
+ user types in a parameter value (rather than picking a value from the 
+list or file browser), the value is checked against the filter. If the 
+user enters an invalid value (a numeric field instead of a text field, 
+for example), a warning or error is automatically given.</li><li id="GUID-EB95FF64-C50D-4B61-A67F-0DBD88F0BC8D">Because
+ values are checked against their filter by internal validation, a 
+filter frees you from having to program your own custom validation in 
+the ToolValidator class.</li></ul><p></p><p id="GUID-E4E18D52-7060-4B91-B0A8-1409338DB8B0">There are two ways to specify filters:</p><p id="GUID-C58AD4DD-7119-420D-BCBF-28FEC8A640E0"></p><ul class="bulleted" id="UL_FD3C8ACA34F74F1DB8442AC1045A6E6F"><li id="GUID-615A86E2-32DB-4AE1-9BFD-7417DE61A3CE">On the <span class="uicontrol">Parameters</span>
+ tab of the tool's properties dialog box, click the parameter, then 
+click the cell next to Filter and choose the filter type from the 
+drop-down list. After choosing the filter type, a dialog box opens where
+ you specify the values for the filter.</li><li id="GUID-5D0A6E74-5B7F-4B55-8069-536B5027ED2F">You can set the values programmatically in a <span class="usertext">ToolValidator</span>
+ class  (examples are given below). Geoprocessing creates filters 
+automatically for parameters of type string, long, double, feature 
+class, file, field, and workspace. Even if you don't choose a filter on 
+the tool's properties dialog box, there is still a filter associated 
+with the parameter—it's just empty. An empty filter is the same as 
+having no filter. By adding values to an empty filter, you activate the 
+filter, and the user's choices are limited by the contents of the 
+filter.</li></ul><p></p><p id="GUID-50FCB719-7C2D-4073-B0D6-188123A3F6E2">There are six kinds of filters, as shown in the table below:</p><h4 class="table title"></h4><table><colgroup width="*"></colgroup><colgroup width="*"></colgroup><thead><tr><th>Filter type</th><th>Values</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-9398B405-F171-4182-A1DE-5CEB176E5ED6">ValueList</p></td><td rowspan="1" colspan="1"><p id="GUID-D50D7F12-3369-4350-A925-B2DED70ECCE4">A list of string or numeric values. Used with String, Long, Double, and Boolean data types.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-52DD9F86-9EBB-4BDE-8378-6B3F703ADBB4">Range</p></td><td rowspan="1" colspan="1"><p id="GUID-29C155AB-AB22-4974-9257-6FC9B00612A9">A minimum and maximum value. Used with Long and Double data types.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-65E2A9B9-191B-4D3C-8864-7929AB7E951D">FeatureClass</p></td><td rowspan="1" colspan="1"><p id="GUID-04DCDA70-0034-4963-805C-3FE5AA2861D5">A
+ list of allowable feature class types, specified with the values 
+"Point", "Multipoint", "Polyline", "Polygon", "MultiPatch", "Sphere", 
+"Annotation", "Dimension". More than one value can be supplied to the 
+filter.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-64E048E5-6D99-4035-BD18-9EDD806A1F05">File</p></td><td rowspan="1" colspan="1"><p id="GUID-8EE1125F-4248-4839-A077-005DEA898190">A list of file suffixes, for example, ".txt", ".e00", ".ditamap".</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-D4FD9E0A-A4ED-4A3A-B3DF-65227D02DCB0">Field</p></td><td rowspan="1" colspan="1"><p id="GUID-8B7FB0BC-8173-47AD-B60A-6BBDD294F538">A
+ list of allowable field types, specified by the values "Short", "Long",
+ "Single", "Double", "Text", "Date", "OID", "Geometry", "Blob", 
+"Raster", "GUID", "GlobalID", "XML". More than one value can be supplied
+ to the filter.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-50C963AA-0B53-46AB-9DF0-972C9573CD58">Workspace</p></td><td rowspan="1" colspan="1"><p id="GUID-75A41739-8F2C-4E45-BCC0-A4B1244DD575">A
+ list of allowable workspace types, specified by the values 
+"FileSystem", "LocalDatabase", and "RemoteDatabase". More than one value
+ can be supplied.</p></td></tr></tbody></table>Filter type and values<section class="section2 padded-anchor" id="GUID-77F1B0F4-BA28-4F78-A6CA-ED62FAD3CCDA" purpose="section2"><h3>Properties</h3><h4 class="table title"></h4><table><colgroup width="*"></colgroup><colgroup width="*"></colgroup><thead><tr><th>Property</th><th>Description</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-8CF83FC7-4C7F-4B5C-858E-07AA25C30306"><span class="usertext">type</span></p></td><td rowspan="1" colspan="1"><p id="GUID-46948B88-D677-4BE2-A706-BF1371382284">The
+ type of filter (ValueList, Range, FeatureClass, File, Field, and 
+Workspace). You can set the type of filter when dealing with Long and 
+Double parameters (see <a class="xref xref" href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/programming-a-toolvalidator-class.htm#GUID-ED8659BB-D4F1-4452-B587-36CB3A298364">note</a>
+ below). For other types of parameters, there is only one valid type of 
+filter, so setting the type on these parameters is ignored. If you do 
+not want to filter values, set the list property to an empty list.</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-0DDBB43D-A3D3-4F45-AEDA-4F53D6BBF4EE"><span class="usertext">list</span></p></td><td rowspan="1" colspan="1"><p id="GUID-61513DD5-595D-413D-8B6F-2F429727CA6F">A list of values for the filter. If you do not want to filter values, set the list property to an empty list.</p></td></tr></tbody></table><span class="usertext">filter</span> properties</section><section class="section2 padded-anchor" id="GUID-91D31C15-755C-4D88-8265-F47E7B705765" purpose="section2"><h3>ValueList</h3><section class="section3 padded-anchor" id="ESRI_SECTION3_593DCDB601E14CCBA5ED250D779531FE" purpose="section3"><h4>ValueList for String parameters</h4><p id="GUID-DE5036ED-776C-4942-9495-0F244490D9B7">For a string parameter, the list can contain any number of strings. Below is an example of setting the list of string values in <span class="usertext">initializeParameters()</span>. The parameter contains two choices: "NEW_FORMAT" and "OLD_FORMAT".</p><div class="codeblock"><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">initializeParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c"># Set the fixed list of "file format type" parameter choices and its</span>
+    <span class="c">#  default value</span>
+    <span class="c">#</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="s">"OLD_FORMAT"</span><span class="p">,</span> <span class="s">"NEW_FORMAT"</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">"OLD_FORMAT"</span>
+    <span class="k">return</span>
+</code></pre></div>
+
+</div><p id="GUID-8FEF3A74-C6DB-4DC8-96F0-CC65A7505F34">In the above example, you could have just as easily set the list of values in the <span class="uicontrol">Parameter</span>
+ tab of the tool's properties dialog box. In fact, if you had set the 
+list of values to something else (like "OLD" and "NEW") in the tool's 
+properties, these values would be replaced by "OLD_FORMAT" and 
+"NEW_FORMAT" when <span class="usertext">initializeParameters()</span> 
+is called. The same is true for the default value—it can be set in the 
+tool's Properties dialog box, then reset in ToolValidator.</p><aside class="note" id="GUID-92E341F2-D7C3-43F1-ACA3-FFB32365BC0D"><h5 class="icon-notebook">Note:</h5><div class="note-content"><p id="GUID-6A5B6781-9FD0-483E-A0DF-528F2F2B2623">The
+ list of values you provide in ToolValidator always replaces the values 
+set in the tool's Properties dialog box. This behavior allows you to 
+update the values based on other parameters.</p></div></aside><p id="GUID-460CC5D6-29DF-4A03-8E06-B2A61B608CA9">Continuing with this example, the code below shows <span class="usertext">updateParameters()</span> changing a list of values in another parameter based on whether the user chose "OLD_FORMAT" or "NEW_FORMAT":</p><div class="codeblock"><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">updateParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c"># Update the value list filter of the "feature type in file" parameter </span>
+    <span class="c">#   depending on the "file format type" parameter.</span>
+    <span class="c">#</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s">"OLD_FORMAT"</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="s">"POINT"</span><span class="p">,</span> <span class="s">"LINE"</span><span class="p">,</span> <span class="s">"POLYGON"</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s">"NEW_FORMAT"</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="s">"POINT"</span><span class="p">,</span> <span class="s">"LINE"</span><span class="p">,</span> <span class="s">"POLYGON"</span><span class="p">,</span> 
+                                      <span class="s">"POINT_WITH_ANNO"</span><span class="p">,</span> 
+                                      <span class="s">"LINE_WITH_ANNO"</span><span class="p">,</span> 
+                                      <span class="s">"POLYGON_WITH_ANNO"</span><span class="p">]</span>
+
+    <span class="c"># Provide default value for "feature type in file" parameter</span>
+    <span class="c">#</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">altered</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">"POINT"</span>
+</code></pre></div>
+
+</div></section><section class="section3 padded-anchor" id="ESRI_SECTION3_1C4077B137BD424B954DBD9BD0C7AD3D" purpose="section3"><h4>ValueList for Long and Double parameters</h4><p id="GUID-C554EAC6-97CC-4C52-B2FF-FF536F79CB63">A Long or Double parameter can have a list of numeric values. The user can only choose or enter values that are in the list.</p><div class="codeblock"><div class="highlight"><pre><code><span class="c"># Set filter for a Long parameter</span>
+<span class="c">#</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">]</span>
+
+<span class="c"># Set filter for a Double parameter</span>
+<span class="c">#</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">]</span>
+</code></pre></div>
+
+</div></section><section class="section3 padded-anchor" id="ESRI_SECTION3_C57197B89CD6441E9BD2ABE67E4C87F0" purpose="section3"><h4>ValueList for Boolean parameters</h4><p id="GUID-7C30664F-D3AE-4930-8076-632D688510A1">There
+ are two values for a Boolean parameter: the true value and false value.
+ The true value is always the first value in the list.</p><div class="codeblock"><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">initializeParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c"># Set the Boolean choice for including or excluding angles</span>
+    <span class="c">#</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="s">"ANGLE"</span><span class="p">,</span> <span class="s">"NO_ANGLE"</span><span class="p">]</span>
+
+    <span class="c"># Set the default value to false (no angle)</span>
+    <span class="c">#</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">"NO_ANGLE"</span>
+    <span class="k">return</span>
+
+<span class="k">def</span> <span class="nf">updateParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c"># Enable angle format parameter if user wants angles</span>
+    <span class="c">#</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s">"ANGLE"</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="bp">True</span>
+</code></pre></div>
+
+</div></section></section><section class="section2 padded-anchor" id="GUID-92FC9D5F-4A58-42A7-BF21-54925EE6DDC1" purpose="section2"><h3>Range</h3><p id="GUID-8207ABB7-9DF1-4903-8256-43F6719041D9">A
+ Long or Double parameter can have a Range filter. Range filters have 
+two values: minimum and maximum. The first value in the list is the 
+minimum. The range is inclusive, meaning the minimum and maximum are 
+valid choices.</p><div class="codeblock"><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">initializeParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c"># Utility values must be between -10 and 10.</span>
+    <span class="c">#</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+</code></pre></div>
+
+</div></section><section class="section2 padded-anchor" id="GUID-031DAB91-79B4-4914-B243-8023EFA59C34" purpose="section2"><h3>Setting filter type on long and double parameters</h3><p id="GUID-ED8659BB-D4F1-4452-B587-36CB3A298364">For
+ Long and Double parameters, the default filter type is ValueList. If 
+you want it to be a Range filter, set the filter type in <span class="usertext">initializeParameters()</span>, as follows:</p><div class="codeblock"><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">initializeParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="c"># Set the 'score' value parameters to a range filter</span>
+  <span class="c">#</span>
+  <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="s">"Range"</span>
+  <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+</code></pre></div>
+
+</div><p id="GUID-58552432-2B93-4DE9-87ED-1EBD51AA0752">You can only set the filter type for Long and Double parameters.</p></section><section class="section2 padded-anchor" id="GUID-B21BC6C5-5492-43AD-9518-D0F6278E9AE1" purpose="section2"><h3>FeatureClass</h3><p id="GUID-45C80258-3347-4803-B569-7644D3394E53">The example below shows setting the feature type of one input parameter based on the feature type of another input parameter.</p><div class="codeblock"><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">updateParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c"># Set the input feature type of the second parameter based</span>
+    <span class="c">#  on the feature type of the first parameter.</span>
+    <span class="c">#</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">valueAsText</span><span class="p">:</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">Describe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">feature_type</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">shapeType</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s">"polygon"</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="s">"point"</span><span class="p">,</span> <span class="s">"multipoint"</span><span class="p">]</span>
+
+        <span class="k">elif</span> <span class="n">feature_type</span> <span class="o">==</span> <span class="s">"polyline"</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="s">"polygon"</span><span class="p">]</span>
+      
+        <span class="k">elif</span> <span class="n">feature_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s">"point"</span><span class="p">,</span> <span class="s">"multipoint"</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="s">"polyline"</span><span class="p">]</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="p">[]</span>
+      
+    <span class="k">return</span>
+</code></pre></div>
+
+</div></section><section class="section2 padded-anchor" id="GUID-61A7A2F8-6B6E-4157-B884-19460B352EFC" purpose="section2"><h3>File</h3><p id="GUID-43CD8332-6AA5-46D2-AAD1-449C60895F22">The file filter contains a list of file suffixes that a file can have, such as <span class="usertext">.txt</span> (simple text file) and <span class="usertext">.csv</span>
+ (comma-separated value). You can supply any text for a suffix—it 
+doesn't have to be a suffix that ArcGIS recognizes. The suffix can be of
+ any length and does not include the dot. The example below shows 
+setting the filter for an input File parameter.</p><div class="codeblock"><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">initializeParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c"># Set the input file type to our recognized options file suffixes</span>
+    <span class="c">#</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="s">"opt56"</span><span class="p">,</span> <span class="s">"opt57"</span><span class="p">,</span> <span class="s">"globalopt"</span><span class="p">]</span>
+    <span class="k">return</span>
+</code></pre></div>
+
+</div></section><section class="section2 padded-anchor" id="GUID-0DEC009C-F200-46F3-8FD0-5F1D2BDA6C71" purpose="section2"><h3>Field</h3><p id="GUID-3B2AE936-6386-4A8C-93E1-1436E0DAB87E">The
+ field filter defines the permissible field types. Values can be 
+"Short", "Long", "Float", "Single", "Double", "Text", "Date", "OID", 
+"Geometry", "Blob", "Raster", "GUID", "GlobalID", and "XML".</p><section class="section3 padded-anchor" id="ESRI_SECTION3_7BCE8AE019CE474DA277F06036DEF851" purpose="section3"><h4>Display versus internal name</h4><p id="GUID-6F4131FF-97C2-44C4-B5C5-325EC51A9B20">There are four field types that have an internal name, shown in the table below.</p><h4 class="table title"></h4><table><colgroup width="*"></colgroup><colgroup width="*"></colgroup><thead><tr><th>Display name</th><th>Internal name</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-56B32DFB-C318-470F-B772-8768E151ACE2">Short</p></td><td rowspan="1" colspan="1"><p id="GUID-0882C6A3-923F-4C63-A27F-992C3FDA8366">SmallInteger</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-1E39AB73-F203-4FD2-BCE4-3F6F3CD3DED7">Long</p></td><td rowspan="1" colspan="1"><p id="GUID-AA3BFBFA-D157-4646-98DC-EF21658B8DF4">Integer</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-A847C177-3739-46D4-8EAA-76FDCA354B3B">Float</p></td><td rowspan="1" colspan="1"><p id="GUID-28DA3065-193F-4DB2-B3BF-499D93B87345">Single</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-CFDC2712-483E-4231-86D6-6FA1F54F5FA9">Text</p></td><td rowspan="1" colspan="1"><p id="GUID-9A087EEA-C555-4EAA-9A45-2E5FE176F4A3">String</p></td></tr></tbody></table>Field filter aliases<p id="GUID-A5E28E74-1354-4D71-BF62-28B04AE519BA">When
+ specifying a field filter, you can use either the display or internal 
+name; that is, the following two lines of code are equivalent:</p><div class="codeblock"><div class="highlight"><pre><code><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="s">"short"</span><span class="p">,</span> <span class="s">"long"</span><span class="p">,</span> <span class="s">"float"</span><span class="p">,</span> <span class="s">"text"</span><span class="p">]</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="s">"smallinteger"</span><span class="p">,</span> <span class="s">"integer"</span><span class="p">,</span> <span class="s">"single"</span><span class="p">,</span> <span class="s">"string"</span><span class="p">]</span>
+</code></pre></div>
+
+</div><p id="GUID-0C9659B3-23ED-4E2B-9DA6-A35C2292E688">If you supply 
+the display name, such as "short", it is converted and stored in the 
+filter as "SmallInteger". You should rarely need to access values in the
+ field filter, but if you do, be aware that the internal name is stored.
+ The code snippet below shows how to account for this:</p><div class="codeblock"><div class="highlight"><pre><code>self.params[1].filter.list = ["short", "long"]
+# 
+if self.params[1].filter.list[0].lower() == "smallinteger":
+    # do something
+</code></pre></div>
+
+</div></section><section class="section3 padded-anchor" id="ESRI_SECTION3_266E835AD9A247B3BB8FC9C5C87A2777" purpose="section3"><h4>Setting a default field value</h4><p id="GUID-340157C4-B4F9-4DDD-BE0E-ADD05FB4D570">You
+ may want to provide a default value for a field parameter. The way you 
+do this is to loop through the fields on the input table and pick the 
+first field that satisfies the filter, as follows:</p><div class="codeblock"><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">initializeParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="s">"short"</span><span class="p">,</span> <span class="s">"long"</span><span class="p">,</span> <span class="s">"float"</span><span class="p">,</span> <span class="s">"double"</span><span class="p">]</span>
+    <span class="k">return</span>
+
+<span class="k">def</span> <span class="nf">updateParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">valueAsText</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">altered</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">""</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">Describe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">fields</span>
+
+        <span class="c"># Set default to the first field that matches our filter</span>
+        <span class="c">#</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+            <span class="n">fType</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">fType</span> <span class="ow">in</span> <span class="p">[</span><span class="s">"smallinteger"</span><span class="p">,</span> <span class="s">"integer"</span><span class="p">,</span> <span class="s">"single"</span><span class="p">,</span> <span class="s">"double"</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span>
+                <span class="k">break</span>
+    <span class="k">return</span>
+</code></pre></div>
+
+</div><aside class="note" id="GUID-5216F693-977A-47C7-9FAA-7598BA3620BF"><h5 class="icon-caution-cone">Caution:</h5><div class="note-content"><p id="GUID-31C780BC-126B-4940-AEF4-DFCD3D6CF849">Do not use the geoprocessing <a class="xref xref" esrisubtype="extrel" hrefpfx="/en/pro-app/arcpy" href="http://pro.arcgis.com/en/pro-app/arcpy/functions/listfields.htm">ListFields</a> function in <span class="usertext">ToolValidator</span>. Instead, use the <a class="xref xref" esrisubtype="extrel" hrefpfx="/en/pro-app/arcpy" href="http://pro.arcgis.com/en/pro-app/arcpy/functions/describe.htm">Describe</a> function as shown above.</p></div></aside></section></section><section class="section2 padded-anchor" id="GUID-039A76E4-27B0-4A84-A520-1DD8D1128DDF" purpose="section2"><h3>Workspace</h3><p id="GUID-613C707D-CDF7-4EF8-B5A0-905B38ED1BC6">The workspace filter specifies the types of input workspaces that are permissible. There are three values:</p><h4 class="table title"></h4><table><colgroup width="*"></colgroup><colgroup width="*"></colgroup><thead><tr><th>Workspace filter</th><th>Description</th></tr></thead><tbody class="align-middle"><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-2D60CD15-071F-4D1D-A947-0F091AE21995"><span class="usertext">FileSystem</span></p></td><td rowspan="1" colspan="1"><p id="GUID-C013DB87-0BDF-41AD-A19B-155AF825BEA0">A system folder, used to store shapefiles, coverages, INFO tables, and grids</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-9BC81FBD-C4A8-47F9-80D4-1B37DF310EEC"><span class="usertext">LocalDatabase</span></p></td><td rowspan="1" colspan="1"><p id="GUID-2D74B0AD-608E-4ECD-8161-B2D0A6A4521F">A personal or file geodatabase</p></td></tr><tr class="align-middle"><td rowspan="1" colspan="1"><p id="GUID-738AA229-7B65-4071-8287-CAB97B3ECD3B"><span class="usertext">RemoteDatabase</span></p></td><td rowspan="1" colspan="1"><p id="GUID-B872FAC8-4214-4E05-91DF-6A16A8156FF3">An ArcSDE database connection</p></td></tr></tbody></table></section></section><section class="section2" purpose="relatedtopics"><h2>Related Topics</h2><ul class="bulleted"><li><a class="xref relatedtopic" href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/customizing-script-tool-behavior.htm">Customizing script tool behavior</a></li><li><a class="xref relatedtopic" href="http://pro.arcgis.com/en/pro-app/arcpy/geoprocessing_and_python/understanding-validation-in-script-tools.htm">Understanding validation in script tools</a></li></ul></section>
+                      <a class="icon-email" data-langlabel="feedback-on-this-topic" href="http://pro.arcgis.com/feedback/">Feedback on this topic?</a>
+                    </main>
+                    <!-- ENDPAGECONTENT -->
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+<script id="" type="text/javascript">setTimeout(function(){var a=document.createElement("script"),b=document.getElementsByTagName("script")[0];a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0006/8609.js?"+Math.floor((new Date).getTime()/36E5);a.async=!0;a.type="text/javascript";b.parentNode.insertBefore(a,b)},1);</script>
+
+      <!--googleoff: all-->
+      
+<footer id="footer" class="footer sticky-footer">
+  <div class="container">
+    <div class="row">
+      <nav class="column-6 tablet-column-24 leader-1">
+        <h4 data-langlabel="arcgis">Arc<span>GIS for Desktop</span></h4>
+        <ul>
+          <li><a data-langlabel="home" href="http://pro.arcgis.com/en/">Home</a></li>
+          <li><a data-langlabel="documentation" href="http://desktop.arcgis.com/en/documentation/">Documentation</a></li>
+          <li><a data-langlabel="pricing" href="http://desktop.arcgis.com/en/pricing/">Pricing</a></li>
+          <li><a data-langlabel="support" href="http://desktop.arcgis.com/en/support/">Support</a></li>
+        </ul>
+      </nav>
+
+      <nav class="column-6 tablet-column-24 leader-1">
+        <h4 data-langlabel="arcgis-platform">Arc<span>GIS</span> Platform</h4>
+        <ul>
+          <li><a data-langlabel="arcgis" href="http://www.arcgis.com/">ArcGIS Online</a></li>
+          <li><a data-langlabel="arcgis-for-desktop" href="http://desktop.arcgis.com/">ArcGIS for Desktop</a></li>
+          <li><a data-langlabel="arcgis-for-server" href="http://server.arcgis.com/">ArcGIS for Server</a></li>
+          <li><a data-langlabel="arcgis-for-developers" href="https://developers.arcgis.com/">ArcGIS for Developers</a></li>
+          <li><a data-langlabel="arcgis-solutions" href="http://solutions.arcgis.com/">ArcGIS Solutions</a></li>
+          <li><a data-langlabel="arcgis-marketplace" href="http://marketplace.arcgis.com/">ArcGIS Marketplace</a></li>
+        </ul>
+      </nav>
+
+      <nav class="column-6 tablet-column-24 leader-1">
+        <h4 data-langlabel="about-esri">About Esri</h4>
+        <ul>
+          <li><a data-langlabel="about-us" href="http://www.esri.com/about-esri/">About Us</a></li>
+          <li><a data-langlabel="careers" href="http://www.esri.com/careers/">Careers</a></li>
+          <li><a data-langlabel="insiders-blog" href="http://blogs.esri.com/esri/esri-insider/">Insiders Blog</a></li>
+          <li><a data-langlabel="user-conference" href="http://www.esri.com/events/user-conference/index.html">User Conference</a></li>
+          <li><a data-langlabel="developer-summit" href="http://www.esri.com/events/devsummit/index.html">Developer Summit</a></li>
+        </ul>
+      </nav>
+
+      <nav class="column-6 tablet-column-24 leader-1">
+        <a class="esri-logo-footer" href="http://esri.com/">Esri</a>
+        <section class="footer-social-nav">
+                <a class="icon-twitter" href="https://twitter.com/Esri/"></a>
+                <a class="icon-facebook" href="https://www.facebook.com/esrigis/"></a>
+                <a class="icon-github" href="http://esri.github.com/"></a>
+                <a class="icon-email" href="http://www.esri.com/about-esri/contact/"></a>
+        </section>
+      </nav>
+      <small class="footer-legal column-24 leader-1 trailer-1">© Copyright 2015 Environmental Systems Research Institute, Inc. | <a data-langlabel="privacy" href="http://www.esri.com/legal/privacy-arcgis/">Privacy</a> | <a data-langlabel="legal" href="http://www.esri.com/legal/software-license">Legal</a></small>
+    </div>
+
+  </div>
+</footer>
+
+
+       
+        
+       <script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/tailcoat.js" type="text/javascript"></script>
+       <script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/init.js" type="text/javascript"></script>
+       <script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/searchform.js" type="text/javascript"></script>
+       <script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/sitewide.js" type="text/javascript"></script>
+    
+        
+        
+      <script src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/affix.js" type="text/javascript"></script>
+      <script type="text/javascript">
+        
+
+          $(function () {
+            var appendFlg = true;
+
+            $("#bigmac")
+            .on("affixed.bs.affix", function (evt) {
+              if (appendFlg) {
+                $("<li><a href='#'>Programming a ToolValidator class</a></li>").insertAfter ($("#bigmac ul li").last());
+                appendFlg = false;
+              }
+              $(".back-to-top").addClass ("visible");
+            })
+            .on ("affix-top.bs.affix", function(evt) {
+              if (!appendFlg) {
+                $("#bigmac ul li").last().remove();
+              }
+              $(".back-to-top").removeClass ("visible");
+              appendFlg = true;
+            })
+          })      
+
+      
+      </script>
+      
+        <script type="text/javascript">
+          window.doctoc = {
+            pubID: "1542",
+            tpcID: "23",
+            
+            hideToc : false
+          }
+        </script>
+
+        <script type="text/javascript" src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/1520.js"></script>
+        <script type="text/javascript" src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/1542.js"></script>
+        <script type="text/javascript" src="Programming%20a%20ToolValidator%20class%E2%80%94Geoprocessing%20and%20Python%20_%20ArcGIS%20for%20Desktop_files/protoc.js"></script>
+
+        
+    
+        <script type="text/javascript"> piAId = '83202'; piCId = '4012';
+(function() { function async_load(){
+var s = document.createElement('script'); s.type = 'text/javascript'; s.src = ('https:' == document.location.protocol ? 'https://pi' : 'http://cdn') +
+'.pardot.com/pd.js';
+var c = document.getElementsByTagName('script')[0];
+c.parentNode.insertBefore(s, c);
+} if(window.attachEvent) { window.attachEvent('onload', async_load); } else { window.addEventListener('load', async_load, false); }
+})(); </script>
+   
+       
+       
+     <div style="display: none;" id="cboxOverlay"></div><div style="display: none;" tabindex="-1" role="dialog" class="" id="colorbox"><div id="cboxWrapper"><div><div style="float: left;" id="cboxTopLeft"></div><div style="float: left;" id="cboxTopCenter"></div><div style="float: left;" id="cboxTopRight"></div></div><div style="clear: left;"><div style="float: left;" id="cboxMiddleLeft"></div><div style="float: left;" id="cboxContent"><div style="float: left;" id="cboxTitle"></div><div style="float: left;" id="cboxCurrent"></div><button id="cboxPrevious" type="button"></button><button id="cboxNext" type="button"></button><button id="cboxSlideshow"></button><div style="float: left;" id="cboxLoadingOverlay"></div><div style="float: left;" id="cboxLoadingGraphic"></div><button id="cboxClose" type="button"></button></div><div style="float: left;" id="cboxMiddleRight"></div></div><div style="clear: left;"><div style="float: left;" id="cboxBottomLeft"></div><div style="float: left;" id="cboxBottomCenter"></div><div style="float: left;" id="cboxBottomRight"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div></div></body></html>
