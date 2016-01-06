@@ -1,0 +1,1 @@
+SELECT TOP 1000 TaxonName, TaxonGroup, SP_GEOMETRY FROM [NBNData_TVERC].[dbo].[TVERC_Spp_Full] WHERE TaxonGroup = 'Birds'
